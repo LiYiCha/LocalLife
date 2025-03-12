@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/community-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/community-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/coupon-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/coupon-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-auth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-common/life-common-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-common/life-common-core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-common/life-common-dataresource/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-common/life-common-dataresource/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-modules/feign-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-modules/feign-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-modules/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/life-modules/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/member-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/member-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/product-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/product-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

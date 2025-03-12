@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.product.mapper.ProductSkusMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.product.pojo.ProductSkus">
+        <id column="sku_id" property="skuId" />
+        <result column="product_id" property="productId" />
+        <result column="sku_name" property="skuName" />
+        <result column="price" property="price" />
+        <result column="stock_quantity" property="stockQuantity" />
+        <result column="image_url" property="imageUrl" />
+        <result column="created_time" property="createdTime" />
+        <result column="updated_time" property="updatedTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        sku_id, product_id, sku_name, price, stock_quantity, image_url, created_time, updated_time
+    </sql>
+    <select id="batchSelectForUpdate" resultType="com.product.pojo.ProductSkus">
+        SELECT * FROM product_skus
+        WHERE product_id IN
+        <foreach item="id" index="index" collection="productIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        FOR UPDATE
+    </select>
+
+</mapper>

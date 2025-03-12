@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="life-common-core" />
+        <module name="life-common" />
+        <module name="life-gateway" />
+        <module name="life-common-dataresource" />
+        <module name="coupon-service" />
+        <module name="community-service" />
+        <module name="life-modules" />
+        <module name="member-service" />
+        <module name="product-service" />
+        <module name="order-service" />
+        <module name="life-auth" />
+        <module name="feign-api" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

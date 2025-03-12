@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1ff10ad4-5f21-4887-9aaa-ddcee1bb57cb" name="更改" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JRebelWorkspace">
+    <option name="jrebelEnabledAutocompile" value="true" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="E:/APP Fire/apache-maven-3.9.6" />
+        <option name="useMavenConfig" value="true" />
+        <option name="userSettingsFile" value="E:\APP Fire\apache-maven-3.9.6\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2sCO3OpoftDKsAwfsxcRWF6VbkH" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "openjdk-23",
+    "last_opened_file_path": "D:/exploitation/work1/LocalLife",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "项目",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "vcs.Git",
+    "spring.configuration.checksum": "b7d9b897bac275c292f45d155fc288c9",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RebelAgentSelection">
+    <selection>jr</selection>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\exploitation\work1\LocalLife" />
+      <recent name="D:\exploitation\work1\LocalLife\coupon-service\src\main\resources" />
+      <recent name="D:\exploitation\work1\LocalLife\order-service\src\main\resources" />
+      <recent name="D:\exploitation\work1\LocalLife\life-modules\feign-api\src\main\java\com\feign" />
+      <recent name="D:\exploitation\work1\LocalLife\community-service\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\exploitation\work1\LocalLife" />
+      <recent name="D:\exploitation\work1\LocalLife\life-gateway" />
+      <recent name="D:\exploitation\work1\LocalLife\product-service\src\main\resources" />
+      <recent name="D:\exploitation\work1\LocalLife\order-service\src\main\resources\mapper" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.feign.pojo" />
+      <recent name="com.feign.dto" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.OrderServiceApplication">
+    <configuration name="CouponServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="coupon-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.coupon.CouponServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LifeAuthApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="life-auth" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.auth.LifeAuthApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.auth.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LifeGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="life-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gateway.LifeGatewayApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gateway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MemberApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="member-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.member.MemberApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.member.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="order-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.order.OrderServiceApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.order.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProducServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="product-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.product.ProducServiceApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.product.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.OrderServiceApplication" />
+        <item itemvalue="Spring Boot.ProducServiceApplication" />
+        <item itemvalue="Spring Boot.LifeGatewayApplication" />
+        <item itemvalue="Spring Boot.LifeAuthApplication" />
+        <item itemvalue="Spring Boot.MemberApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="1ff10ad4-5f21-4887-9aaa-ddcee1bb57cb" name="更改" comment="" />
+      <created>1737955893935</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1737955893935</updated>
+      <workItem from="1737955895714" duration="2061000" />
+      <workItem from="1738138335227" duration="6636000" />
+      <workItem from="1738288120263" duration="1213000" />
+      <workItem from="1738381601076" duration="10393000" />
+      <workItem from="1738463316856" duration="4616000" />
+      <workItem from="1738633013404" duration="12671000" />
+      <workItem from="1738720302104" duration="12392000" />
+      <workItem from="1738806629017" duration="21787000" />
+      <workItem from="1738832734682" duration="852000" />
+      <workItem from="1738891184555" duration="12494000" />
+      <workItem from="1739155183759" duration="1336000" />
+      <workItem from="1739156552406" duration="891000" />
+      <workItem from="1739157457412" duration="13876000" />
+      <workItem from="1739191758333" duration="9000" />
+      <workItem from="1739239981535" duration="13773000" />
+      <workItem from="1739326586472" duration="20760000" />
+      <workItem from="1739348454974" duration="7741000" />
+      <workItem from="1739415762936" duration="12845000" />
+      <workItem from="1739760159046" duration="5557000" />
+      <workItem from="1739843493454" duration="5043000" />
+      <workItem from="1739865668435" duration="1593000" />
+      <workItem from="1739867967778" duration="8223000" />
+      <workItem from="1739930500917" duration="260000" />
+      <workItem from="1739931707506" duration="24000" />
+      <workItem from="1739932197331" duration="1271000" />
+      <workItem from="1739935125198" duration="17000" />
+      <workItem from="1740616027587" duration="115000" />
+      <workItem from="1741486337040" duration="345000" />
+      <workItem from="1741486696201" duration="6625000" />
+      <workItem from="1741507343566" duration="286000" />
+      <workItem from="1741507631740" duration="431000" />
+      <workItem from="1741508103994" duration="6668000" />
+      <workItem from="1741566201377" duration="457000" />
+      <workItem from="1741590778667" duration="11530000" />
+      <workItem from="1741655649627" duration="2285000" />
+      <workItem from="1741659602511" duration="664000" />
+      <workItem from="1741661325422" duration="678000" />
+      <workItem from="1741683918202" duration="7008000" />
+      <workItem from="1741742071394" duration="3722000" />
+      <workItem from="1741771749022" duration="6677000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

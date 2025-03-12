@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.member.mapper.UserCheckinsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.member.pojo.UserCheckins">
+        <id column="checkin_id" property="checkinId" />
+        <result column="user_id" property="userId" />
+        <result column="checkin_date" property="checkinDate" />
+        <result column="consecutive_days" property="consecutiveDays" />
+        <result column="created_time" property="createdTime" />
+        <result column="updated_time" property="updatedTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        checkin_id, user_id, checkin_date, consecutive_days, created_time, updated_time
+    </sql>
+
+</mapper>

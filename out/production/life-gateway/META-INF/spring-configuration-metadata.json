@@ -1,0 +1,37 @@
+{
+  "groups": [
+    {
+      "name": "gateway.routes.config",
+      "type": "com.gateway.config.GatewayRouteConfigProperties",
+      "sourceType": "com.gateway.config.GatewayRouteConfigProperties"
+    },
+    {
+      "name": "url.white",
+      "type": "com.gateway.config.UrlWhiteConfig",
+      "sourceType": "com.gateway.config.UrlWhiteConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "gateway.routes.config.data-id",
+      "type": "java.lang.String",
+      "sourceType": "com.gateway.config.GatewayRouteConfigProperties"
+    },
+    {
+      "name": "gateway.routes.config.group",
+      "type": "java.lang.String",
+      "sourceType": "com.gateway.config.GatewayRouteConfigProperties"
+    },
+    {
+      "name": "gateway.routes.config.namespace",
+      "type": "java.lang.String",
+      "sourceType": "com.gateway.config.GatewayRouteConfigProperties"
+    },
+    {
+      "name": "url.white.list",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.gateway.config.UrlWhiteConfig"
+    }
+  ],
+  "hints": []
+}

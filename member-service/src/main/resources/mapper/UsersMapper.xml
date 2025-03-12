@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.member.mapper.UsersMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.feign.pojo.Users">
+        <id column="user_id" property="userId" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="mobile" property="mobile" />
+        <result column="nickname" property="nickname" />
+        <result column="email" property="email" />
+        <result column="header" property="header" />
+        <result column="gender" property="gender" />
+        <result column="birth" property="birth" />
+        <result column="sign" property="sign" />
+        <result column="total_points" property="totalPoints" />
+        <result column="total_growth_value" property="totalGrowthValue" />
+        <result column="created_time" property="createdTime" />
+        <result column="updated_time" property="updatedTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        user_id, username, password mobile, nickname, email, header, gender, birth, sign, total_points, total_growth_value, created_time, updated_time
+    </sql>
+
+    <select id="getUsersInfo" resultType="com.member.dto.UsersDTO">
+        select
+            u.user_id,
+            u.username,
+            u.mobile,
+            u.nickname,
+            u.email,
+            u.header,
+            u.gender,
+            u.birth,
+            u.sign,
+            u.total_points,
+            u.total_growth_value,
+            u.created_time,
+            u.updated_time
+        from
+            users u
+        where
+            u.username = #{username}
+    </select>
+
+</mapper>

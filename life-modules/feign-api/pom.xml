@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>local-life</artifactId>
+		<groupId>com.life</groupId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>feign-api</artifactId>
+
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<!--open feign-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<!-- load balancer-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
+		</dependency>
+		<!--OK http 的依赖 -->
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-okhttp</artifactId>
+		</dependency>
+		<!--核心模块-->
+		<dependency>
+			<groupId>com.life</groupId>
+			<artifactId>life-common-core</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+
+
+</project>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.coupon.mapper.CouponMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.coupon.pojo.Coupon">
+        <id column="id" property="id" />
+        <result column="store_id" property="storeId" />
+        <result column="title" property="title" />
+        <result column="pay_value" property="payValue" />
+        <result column="actual_value" property="actualValue" />
+        <result column="total_stock" property="totalStock" />
+        <result column="available_stock" property="availableStock" />
+        <result column="limit_per_user" property="limitPerUser" />
+        <result column="valid_start_time" property="validStartTime" />
+        <result column="valid_end_time" property="validEndTime" />
+        <result column="status" property="status" />
+        <result column="created_time" property="createdTime" />
+        <result column="updated_time" property="updatedTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, store_id, title, pay_value, actual_value, total_stock, available_stock, limit_per_user, valid_start_time, valid_end_time, status, created_time, updated_time
+    </sql>
+
+</mapper>
