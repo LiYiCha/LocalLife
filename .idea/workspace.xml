@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ff10ad4-5f21-4887-9aaa-ddcee1bb57cb" name="更改" comment="1">
+    <list default="true" id="1ff10ad4-5f21-4887-9aaa-ddcee1bb57cb" name="更改" comment="更新接口规范，优化数据库字段">
       <change afterPath="$PROJECT_DIR$/file-service/pom.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/payment-system/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/payment-system/pom.xml" afterDir="false" />
@@ -733,7 +733,7 @@
       <workItem from="1749295445875" duration="3341000" />
       <workItem from="1749363134053" duration="1505000" />
       <workItem from="1749603094057" duration="2068000" />
-      <workItem from="1749625328702" duration="826000" />
+      <workItem from="1749625328702" duration="1164000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -762,7 +762,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1" />
-    <option name="LAST_COMMIT_MESSAGE" value="1" />
+    <MESSAGE value="更新接口规范，优化数据库字段" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新接口规范，优化数据库字段" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
