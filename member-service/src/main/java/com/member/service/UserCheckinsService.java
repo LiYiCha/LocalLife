@@ -17,4 +17,6 @@ public interface UserCheckinsService extends IService<UserCheckins> {
 
     @Transactional
     Result checkin(Integer userId);
+
+    Result getCheckinInfo(Integer userId);
 }

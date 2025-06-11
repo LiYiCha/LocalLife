@@ -53,6 +53,12 @@ public class UsersPosts implements Serializable {
     private String content;
 
     /**
+     * 帖子图片
+     */
+    @TableField("image_url")
+    private String imageUrl;
+
+    /**
      * 帖子类别
      */
     @TableField("category")

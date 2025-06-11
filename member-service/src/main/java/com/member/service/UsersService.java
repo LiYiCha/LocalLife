@@ -19,7 +19,6 @@ public interface UsersService extends IService<Users> {
 
     UsersDTO getUserInfo(String username);
 
-
     @Transactional(rollbackFor = Exception.class)
     boolean updateUserPoints(Integer userId, Integer points, Byte type, String source);
 }

@@ -1,6 +1,7 @@
 package com.product.mapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dataresource.pojo.ProductEs;
 import com.product.dto.ProductDetailDTO;
 import com.product.dto.SkuDTO;
 import com.product.pojo.Products;
@@ -41,30 +42,22 @@ public interface ProductsMapper extends BaseMapper<Products> {
     /**
      * 根据关键词搜索商品
      * @param keyword
-     * @param limit
+     * @param merchantId
+     * @param page
      * @return
      */
-    @Select("SELECT p.product_id, p.product_name, p.description, p.status, " +
-            "MIN(ps.price) AS min_price, pi.image_url AS main_image " +
-            "FROM products p " +
-            "LEFT JOIN product_images pi ON p.product_id = pi.product_id AND pi.is_main = 1 " +
-            "LEFT JOIN product_skus ps ON p.product_id = ps.product_id " +
-            "WHERE (p.product_name LIKE CONCAT('%', #{keyword}, '%') " +
-            "OR p.description LIKE CONCAT('%', #{keyword}, '%')) " +
-            "GROUP BY p.product_id, pi.image_url " +
-            "ORDER BY min_price ASC " +
-            "LIMIT #{limit}")
-    List<Products> searchByKeyword(@Param("keyword") String keyword, @Param("limit") int limit);
+    Page<ProductDetailDTO> searchByKeyword(@Param("keyword") String keyword,
+                                   @Param("merchantId") Integer merchantId,
+                                   @Param("page") Page<ProductDetailDTO> page);
 
     /**
      * 获取推荐商品
      * @param limit
      * @return
      */
-    @Select("SELECT p.product_id, p.product_name, p.description, p.status, " +
-            "MIN(ps.price) AS min_price, MIN(pi.image_url) AS main_image " +
+    @Select("SELECT p.product_id, p.product_name, p.description, p.status,p.main_image AS mainImage, " +
+            "MIN(ps.price) AS min_price " +
             "FROM products p " +
-            "LEFT JOIN product_images pi ON p.product_id = pi.product_id AND pi.is_main = 1 " +
             "LEFT JOIN product_skus ps ON p.product_id = ps.product_id " +
             "GROUP BY p.product_id " +
             "ORDER BY p.sales_count DESC " +
@@ -78,27 +71,7 @@ public interface ProductsMapper extends BaseMapper<Products> {
      * @param productId 商品ID
      * @return 商品详细信息
      */
-    @Select("SELECT p.product_id, p.product_name, p.description, p.status, p.sales_count, p.is_recommend, p.sort_order, " +
-            "pi.image_url AS image_url, " +
-            "ps.sku_id, ps.sku_name, ps.price, ps.stock_quantity, ps.image_url AS sku_image_url " +
-            "FROM products p " +
-            "LEFT JOIN product_images pi ON p.product_id = pi.product_id " +
-            "LEFT JOIN product_skus ps ON p.product_id = ps.product_id " +
-            "WHERE p.product_id = #{productId}")
-    @Results({
-            @Result(property = "productId", column = "product_id"),
-            @Result(property = "productName", column = "product_name"),
-            @Result(property = "description", column = "description"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "salesCount", column = "sales_count"),
-            @Result(property = "isRecommend", column = "is_recommend"),
-            @Result(property = "sortOrder", column = "sort_order"),
-            @Result(property = "imageUrls", column = "product_id",
-                    many = @Many(select = "getProductImagesByProductId")),
-            @Result(property = "skus", column = "product_id",
-                    many = @Many(select = "getProductSkusByProductId"))
-    })
-    ProductDetailDTO getProductDetailById(@Param("productId") int productId);
+    List<ProductDetailDTO> getProductDetailById(@Param("productId") int productId);
 
     /**
      * 根据商品ID获取商品图片列表
@@ -114,7 +87,79 @@ public interface ProductsMapper extends BaseMapper<Products> {
     List<SkuDTO> getProductSkusByProductId(@Param("productId") int productId);
 
     /**
-     * 分页查询商品
+     * 分页查询商品列表
+     * @param page
+     * @return
      */
-    Page<Products> getProductsPage(Page<Products> page);
+    Page<ProductDetailDTO> getProductsPage(Page<ProductDetailDTO> page);
+
+
+    /**
+     * 分页查询热销（推荐）商品
+     * @param page 分页对象
+     * @return 热销商品列表
+     */
+    Page<ProductDetailDTO> getHootProducts(Page<ProductDetailDTO> page);
+
+    /**
+     * 获取商品分类树
+     * @return 商品分类树
+     */
+    Page<Map<String, Object>> getCategoryTree(
+            @Param("merchantId") Integer merchantId,
+            @Param("page") Page<Map<String, Object>> page
+    );
+
+
+    /**
+     * 根据分类名称查询商品
+     * @param categoryName 分类名称
+     * @param merchantId 商家ID
+     * @param page 分页对象
+     * @return 商品列表
+     */
+    Page<ProductDetailDTO> getProductsByCategoryName(
+            @Param("categoryName") String categoryName,
+            @Param("merchantId") Integer merchantId,
+            @Param("page") Page<ProductDetailDTO> page
+    );
+
+
+    /**
+     * 根据二级分类ID查询商品
+     * @param categoryId 二级分类ID
+     * @param page 分页对象
+     * @return 商品列表
+     */
+    Page<ProductDetailDTO> getProductsBySubCategory(
+            @Param("categoryId") Integer categoryId,
+            @Param("merchantId") Integer merchantId,
+            @Param("page") Page<ProductDetailDTO> page);
+
+    /**
+     * ES首次全量同步数据
+     */
+    Page<ProductEs> fetchAllProductsES(@Param("page") Page<ProductEs> page);
+
+
+    /**
+     * ES增量同步数据
+     * @param productId
+     * @return
+     */
+    List<ProductEs> fetchOneForEs(@Param("productId") int productId);
+    /**
+     * 获取商品总数
+     * @return 商品总数
+     */
+    @Select("SELECT COUNT(*) FROM products")
+    Long getTotalProductCount();
+
+    /**
+     * 根据商家ID获取商品列表
+     * @param merchantId 商家ID
+     * @param pageRequest 分页对象
+     * @return 商品列表
+     */
+    Page<ProductDetailDTO> getByMerchant(Integer merchantId, Page<ProductDetailDTO> pageRequest);
 }

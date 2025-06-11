@@ -1,78 +1,199 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.product.mapper.ProductsMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.product.pojo.Products">
-        <id column="product_id" property="productId" />
-        <result column="merchant_id" property="merchantId" />
-        <result column="category_id" property="categoryId" />
-        <result column="product_name" property="productName" />
-        <result column="description" property="description" />
-        <result column="status" property="status" />
-        <result column="sales_count" property="salesCount" />
-        <result column="is_recommend" property="isRecommend" />
-        <result column="sort_order" property="sortOrder" />
-        <result column="created_time" property="createdTime" />
-        <result column="updated_time" property="updatedTime" />
-    </resultMap>
+    <!-- ================================== -->
+    <!--           公共字段定义             -->
+    <!-- ================================== -->
 
-    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        product_id, merchant_id, category_id, name, description, status, sales_count, is_recommend, sort_order, created_time, updated_time
+        product_id, merchant_id, category_id, product_name,
+        description, status, sales_count, is_recommend,
+        sort_order, main_image, created_time, updated_time
     </sql>
 
-    <!-- 分页查询商品列表 -->
-    <select id="getProductsPage" resultMap="BaseResultMap">
-        SELECT
-            p.product_id,
-            p.merchant_id,
-            p.category_id,
-            p.product_name,
-            p.description,
-            p.status,
-            p.sales_count,
-            p.is_recommend,
-            p.sort_order,
-            p.created_time,
-            p.updated_time,
-            MIN(pi.image_url) AS main_image
-        FROM
-            products p
-                LEFT JOIN
-            product_images pi ON p.product_id = pi.product_id AND pi.is_main = 1
-        GROUP BY
-            p.product_id
-        ORDER BY
-            p.sales_count DESC
-        LIMIT
-            #{page.offset}, #{page.size}
+    <sql id="Sku_Column_List">
+        sku_id AS skuId, sku_name AS skuName, price,
+        stock_quantity AS stockQuantity, image_url AS imageUrl
+    </sql>
+
+    <sql id="Image_Column_List">
+        image_id AS imageId, image_url AS imageUrl,
+        sort_order AS sortOrder
+    </sql>
+
+    <!-- ================================== -->
+    <!--         ResultMap 定义            -->
+    <!-- ================================== -->
+
+    <!-- 基础商品信息 -->
+    <resultMap id="BaseResultMap" type="com.product.pojo.Products">
+        <id column="product_id" property="productId"/>
+        <result column="merchant_id" property="merchantId"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="product_name" property="productName"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+        <result column="sales_count" property="salesCount"/>
+        <result column="is_recommend" property="isRecommend"/>
+        <result column="sort_order" property="sortOrder"/>
+        <result column="main_image" property="mainImage"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+
+    <!-- 商品 + 图片 + SKU -->
+    <resultMap id="ProductWithRelationsResultMap"
+               type="com.product.dto.ProductDetailDTO"
+               extends="BaseResultMap">
+        <collection property="images"
+                    column="product_id"
+                    ofType="com.product.dto.ProductImageDTO"
+                    select="getImagesByProductId"/>
+        <collection property="skus"
+                    column="product_id"
+                    ofType="com.product.dto.ProductSkuDTO"
+                    select="getSkusByProductId"/>
+    </resultMap>
+
+    <!-- ================================== -->
+    <!--          核心业务 SQL              -->
+    <!-- ================================== -->
+
+    <!-- 商家获取商品列表 -->
+    <select id="getByMerchant" resultMap="ProductWithRelationsResultMap">
+        SELECT * FROM products
+        WHERE merchant_id = #{merchantId}
+        ORDER BY created_time DESC
     </select>
 
-    <!-- 根据商品ID获取商品详细信息 -->
-    <select id="getProductDetailById2" resultType="com.product.dto.ProductDetailDTO">
+    <!-- 获取商品详细信息 -->
+    <select id="getProductDetailById" resultMap="ProductWithRelationsResultMap">
+        SELECT * FROM products
+        WHERE product_id = #{productId}
+    </select>
+
+    <!-- 搜索商品（支持关键字和分页） -->
+    <select id="searchByKeyword" resultMap="ProductWithRelationsResultMap">
+        SELECT DISTINCT p.*
+        FROM products p
+        LEFT JOIN product_skus ps ON p.product_id = ps.product_id
+        WHERE (p.product_name LIKE CONCAT('%', #{keyword}, '%')
+        OR p.description LIKE CONCAT('%', #{keyword}, '%'))
+        AND p.status = 'AVAILABLE'
+        <if test="merchantId != null">
+            AND p.merchant_id = #{merchantId}
+        </if>
+        ORDER BY p.sales_count DESC
+    </select>
+
+    <!-- 分页查询商品列表 -->
+    <select id="getProductsPage" resultMap="ProductWithRelationsResultMap">
+        SELECT *
+        FROM products
+        ORDER BY sales_count DESC
+    </select>
+
+    <!-- 获取热销推荐商品 -->
+    <select id="getHootProducts" resultMap="ProductWithRelationsResultMap">
+        SELECT *
+        FROM products
+        WHERE is_recommend = 1
+        ORDER BY sales_count DESC
+    </select>
+
+    <!-- 获取分类树 -->
+    <select id="getCategoryTree" resultType="map">
         SELECT
-            p.product_id,
-            p.product_name,
-            p.description,
-            p.status,
-            p.sales_count,
-            p.is_recommend,
-            p.sort_order,
-            pi.image_url AS image_url,
-            ps.sku_id,
-            ps.sku_name,
-            ps.price,
-            ps.stock_quantity,
-            ps.image_url AS sku_image_url
-        FROM
-            products p
-                LEFT JOIN
-            product_images pi ON p.product_id = pi.product_id
-                LEFT JOIN
-            product_skus ps ON p.product_id = ps.product_id
-        WHERE
-            p.product_id = #{productId}
+        pc1.category_id AS categoryId,
+        pc1.name AS categoryName,
+        pc1.cover_image AS coverImage,
+        pc2.category_id AS subCategoryId,
+        pc2.name AS subCategoryName,
+        pc2.cover_image AS subCoverImage
+        FROM product_categories pc1
+        LEFT JOIN product_categories pc2 ON pc1.category_id = pc2.parent_id
+        WHERE pc1.level = 1 AND pc1.status = 1 AND pc1.is_show = 1
+        <if test="merchantId != null">
+            AND pc1.merchant_id = #{merchantId}
+        </if>
+        ORDER BY pc1.sort_order, pc2.sort_order
+    </select>
+
+    <!-- 通过分类名查询商品 -->
+    <select id="getProductsByCategoryName" resultMap="ProductWithRelationsResultMap">
+        SELECT DISTINCT p.*
+        FROM products p
+        INNER JOIN product_categories pc ON p.category_id = pc.category_id
+        WHERE (pc.name LIKE CONCAT('%', #{categoryName}, '%')
+        OR pc.parent_id IN (
+        SELECT category_id FROM product_categories
+        WHERE name LIKE CONCAT('%', #{categoryName}, '%')
+        ))
+        AND p.status = 'AVAILABLE'
+        <if test="merchantId != null">
+            AND p.merchant_id = #{merchantId}
+        </if>
+        ORDER BY p.sort_order DESC
+    </select>
+
+    <!-- 根据二级分类ID获取商品 -->
+    <select id="getProductsBySubCategory" resultMap="ProductWithRelationsResultMap">
+        SELECT *
+        FROM products
+        WHERE category_id = #{categoryId}
+        AND status = 'AVAILABLE'
+        <if test="merchantId != null">
+            AND merchant_id = #{merchantId}
+        </if>
+        ORDER BY sort_order DESC
+    </select>
+
+    <!-- ES 全量同步数据 -->
+    <select id="fetchAllProductsES" resultMap="ProductWithRelationsResultMap">
+        SELECT * FROM products
+    </select>
+
+    <!-- ES 增量同步数据 -->
+    <select id="fetchOneForEs" resultType="com.dataresource.pojo.ProductEs">
+        SELECT
+            product_id AS productId,
+            merchant_id AS merchantId,
+            category_id AS categoryId,
+            product_name AS productName,
+            description AS description,
+            status AS status,
+            sales_count AS salesCount,
+            is_recommend AS isRecommend,
+            sort_order AS sortOrder,
+            main_image AS mainImage,
+            created_time AS createdTime,
+            updated_time AS updatedTime,
+            (SELECT price FROM product_skus WHERE product_id = #{productId} LIMIT 1) AS price,
+            (SELECT stock_quantity FROM product_skus WHERE product_id = #{productId} LIMIT 1) AS stockQuantity,
+            (SELECT image_url FROM product_skus WHERE product_id = #{productId} LIMIT 1) AS skuImageUrl
+        FROM products
+        WHERE product_id = #{productId}
+    </select>
+
+    <!-- ================================== -->
+    <!--      子查询：用于嵌套加载         -->
+    <!-- ================================== -->
+
+    <!-- 获取商品图片 -->
+    <select id="getImagesByProductId" resultType="com.product.dto.ProductImageDTO">
+        SELECT
+        <include refid="Image_Column_List"/>
+        FROM product_images
+        WHERE product_id = #{productId}
+    </select>
+
+    <!-- 获取商品SKU -->
+    <select id="getSkusByProductId" resultType="com.product.dto.ProductSkuDTO">
+        SELECT
+        <include refid="Sku_Column_List"/>
+        FROM product_skus
+        WHERE product_id = #{productId}
     </select>
 
 </mapper>

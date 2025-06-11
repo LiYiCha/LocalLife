@@ -28,6 +28,8 @@
         <module>order-service</module>
         <module>coupon-service</module>
         <module>product-service</module>
+        <module>search-service</module>
+        <module>file-service</module>
     </modules>
 
     <!-- 所有模块都会继承的依赖 -->
@@ -36,6 +38,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
             <optional>true</optional>
         </dependency>
 
@@ -52,10 +55,23 @@
         <mysql.version>8.0.33</mysql.version>
         <druid.version>1.2.20</druid.version>
         <knife4j.version>4.1.0</knife4j.version>
+        <log4j2.version>2.23.1</log4j2.version>
+        <Swagger3.version>3.0.0</Swagger3.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!--spring依赖-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
             <!-- SpringBoot 依赖配置 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -63,6 +79,12 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- Spring Cloud -->
@@ -96,6 +118,7 @@
                 <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
+            <!--MyBatis plus Extension-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-extension</artifactId>
@@ -114,6 +137,12 @@
                 <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
+            <!--Swagger3-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${Swagger3.version}</version>
+            </dependency>
 
             <!--druid连接池-->
             <dependency>
@@ -128,7 +157,34 @@
                 <artifactId>life-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+
         </dependencies>
     </dependencyManagement>
+    <build>
+        <plugins>
+            <!-- 添加Spring Boot插件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.12.0</version>
+                <configuration>
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

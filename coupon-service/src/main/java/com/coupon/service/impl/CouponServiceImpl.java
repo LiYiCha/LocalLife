@@ -3,6 +3,7 @@ package com.coupon.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.core.utils.Result;
+import com.coupon.dto.CouponDetailDTO;
 import com.coupon.pojo.Coupon;
 import com.coupon.mapper.CouponMapper;
 import com.coupon.pojo.CouponOrder;
@@ -11,6 +12,7 @@ import com.coupon.service.CouponService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.seata.spring.annotation.GlobalTransactional;
 import jakarta.annotation.Resource;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +35,9 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
 
     @Resource
     private CouponOrderService couponOrderService;
+    @Resource
+    private CouponMapper couponMapper;
+
     /**
      * 验证优惠劵
      *
@@ -40,7 +45,7 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
      * @param userId   用户id
      */
     @Override
-    public Boolean validateCoupon(int couponId, int userId) {
+    public Boolean validateCoupon(Integer couponId, Integer userId) {
         // 获取优惠劵
         Coupon coupon = getById(couponId);
         // 判断优惠劵状态
@@ -117,14 +122,14 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
     /**
      * 根据id和storeId删除优惠劵
      *
-     * @param id
+     * @param couponId
      * @param storeId
      * @return
      */
     @Override
-    public boolean removeByIdAndStoreId(int id, int storeId) {
+    public boolean removeByIdAndStoreId(Integer couponId, Integer storeId) {
         QueryWrapper<Coupon> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id", id).eq("store_id", storeId);
+        queryWrapper.eq("coupon_id", couponId).eq("store_id", storeId);
         return remove(queryWrapper);
     }
 
@@ -138,38 +143,13 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
      */
     @Override
     @Transactional
-    public Page<Coupon> getCouponsByUser(int userId, int page, int size) {
+    public Result getCouponsByUser(Integer userId, Integer page, Integer size) {
         // 1. 创建分页对象
-        Page<Coupon> pageInfo = new Page<>(page, size);
-
+        Page<CouponDetailDTO> pageInfo = new Page<>(page, size);
         // 2. 根据用户ID查询所有相关的优惠券订单
-        QueryWrapper<CouponOrder> orderQueryWrapper = new QueryWrapper<>();
-        orderQueryWrapper.eq("user_id", userId);
-        List<CouponOrder> couponOrders = couponOrderService.list(orderQueryWrapper);
-
-        // 3. 获取所有优惠券ID
-        List<Integer> couponIds = couponOrders.stream()
-                .map(CouponOrder::getCouponId)
-                .collect(Collectors.toList());
-
-        if (couponIds.isEmpty()) {
-            return pageInfo;
-        }
-
-        // 4. 创建优惠券查询条件
-        QueryWrapper<Coupon> couponQueryWrapper = new QueryWrapper<>();
-        couponQueryWrapper.in("id", couponIds)
-                .and(wrapper -> wrapper
-                        .gt("valid_end_time", LocalDateTime.now()) // 未过期
-                        .or()
-                        .between("valid_end_time",
-                                LocalDateTime.now().minusDays(7),
-                                LocalDateTime.now()) // 过期7天内
-                )
-                .orderByAsc("valid_end_time"); // 按有效期升序排序
-
-        // 5. 使用MyBatis-Plus分页查询
-        return this.page(pageInfo, couponQueryWrapper);
+        List<CouponDetailDTO> couponOrders = couponMapper.getCouponAndOrder(userId,pageInfo);
+        //3.返回数据
+        return Result.success(couponOrders);
     }
 
     /**
@@ -200,7 +180,7 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
 
         // 4. 扣减库存（乐观锁）
         boolean updateSuccess = this.lambdaUpdate()
-                .eq(Coupon::getId, couponId)
+                .eq(Coupon::getCouponId, couponId)
                 .gt(Coupon::getAvailableStock, 0)
                 .setSql("available_stock = available_stock - 1")
                 .update();

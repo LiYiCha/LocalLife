@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.core.utils.Result;
 
-@FeignClient(name = "coupon-service", path = "/coupon")
+@FeignClient(name = "coupon-service", path = "/api/coupon")
 public interface CouponClient {
 
     // 验证优惠券

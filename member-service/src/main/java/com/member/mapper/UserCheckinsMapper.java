@@ -1,5 +1,6 @@
 package com.member.mapper;
 
+import com.member.dto.CheckinsDTO;
 import com.member.pojo.UserCheckins;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UserCheckinsMapper extends BaseMapper<UserCheckins> {
 
+    CheckinsDTO getCheckinInfo(Integer userId);
 }

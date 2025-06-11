@@ -17,9 +17,41 @@
         <result column="updated_time" property="updatedTime" />
     </resultMap>
 
+    <!--商家及其店铺信息-->
+    <resultMap id="MerchantInfo" type="com.member.dto.MerchantDTO">
+        <id column="merchant_id" property="merchantId" />
+        <result column="email" property="email" />
+        <result column="mobile" property="mobile" />
+        <result column="business_name" property="businessName" />
+        <result column="business_category" property="businessCategory" />
+        <result column="business_license" property="businessLicense" />
+        <result column="avatar_url" property="avatarUrl" />
+        <result column="created_time" property="createdTime" />
+        <result column="updated_time" property="updatedTime" />
+        <!--店铺信息-->
+        <collection property="stores" ofType="com.member.dto.MerchantStoresDTO">
+            <id column="store_id" property="storeId" />
+            <result column="store_name" property="storeName" />
+            <result column="description" property="description" />
+            <result column="logo_url" property="logoUrl" />
+            <result column="address" property="address" />
+            <result column="day_of_week" property="dayOfWeek" />
+            <result column="opening_time" property="openingTime" />
+            <result column="closing_time" property="closingTime" />
+            <result column="status" property="status" />
+        </collection>
+    </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         merchant_id, username, password, email, mobile, business_name, business_category, business_license, avatar_url, created_time, updated_time
     </sql>
+    <!--查询商家及其店铺信息-->
+    <select id="getByMerchantUserName" resultMap="MerchantInfo">
+        select m.merchant_id, m.email, m.mobile, m.business_name, m.business_category, m.business_license, m.avatar_url, m.created_time, m.updated_time,
+        s.store_id, s.store_name, s.description, s.logo_url, s.address, s.day_of_week, s.opening_time, s.closing_time, s.status
+        from merchants m
+        left join merchant_stores s on m.merchant_id = s.merchant_id
+        where m.username  = #{username}
+    </select>
 
 </mapper>

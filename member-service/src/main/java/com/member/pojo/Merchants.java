@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -39,12 +41,14 @@ public class Merchants implements Serializable {
      * 商家用户名
      */
     @TableField("username")
+    @NotBlank(message = "商家用户名不能为空")
     private String username;
 
     /**
      * 密码哈希
      */
     @TableField("password")
+    @NotBlank(message = "商家密码不能为空")
     private String password;
 
     /**
@@ -69,12 +73,14 @@ public class Merchants implements Serializable {
      * 商家所属行业类别
      */
     @TableField("business_category")
+    @NotBlank(message = "商家所属行业类别不能为空")
     private String businessCategory;
 
     /**
      * 营业执照编号
      */
     @TableField("business_license")
+    @NotBlank(message = "营业执照编号不能为空")
     private String businessLicense;
 
     /**

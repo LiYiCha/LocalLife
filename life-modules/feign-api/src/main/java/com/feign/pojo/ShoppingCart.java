@@ -36,6 +36,10 @@ public class ShoppingCart implements Serializable {
      */
     private Integer productId;
     /**
+     * 商家ID
+     */
+    private Integer merchantId;
+    /**
      * 商品名称
      */
     private String productName;

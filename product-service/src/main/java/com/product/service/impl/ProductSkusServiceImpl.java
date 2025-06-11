@@ -2,6 +2,7 @@ package com.product.service.impl;
 
 import com.core.utils.RedisUtil;
 import com.core.utils.Result;
+import com.product.config.RabbitMQProducer;
 import com.product.dto.ProductStockDTO;
 import com.product.pojo.ProductSkus;
 import com.product.mapper.ProductSkusMapper;
@@ -28,6 +29,7 @@ public class ProductSkusServiceImpl extends ServiceImpl<ProductSkusMapper, Produ
     @Resource
     private ProductSkusMapper productSkusMapper;
 
+
     // 缓存配置
     private static final String STOCK_CACHE_PREFIX = "product:stock:";
     private final Cache<Integer, Integer> localStockCache = Caffeine.newBuilder()
@@ -35,6 +37,12 @@ public class ProductSkusServiceImpl extends ServiceImpl<ProductSkusMapper, Produ
             .maximumSize(1000) // 最多缓存1000个商品
             .build();
 
+    /**
+     * 检查商品库存
+     *
+     * @param stockList 商品库存列表
+     * @return 结果
+     */
     @Override
     public Result checkStock(List<ProductStockDTO> stockList) {
         List<String> insufficientStockMessages = new ArrayList<>();
@@ -69,6 +77,12 @@ public class ProductSkusServiceImpl extends ServiceImpl<ProductSkusMapper, Produ
         }
     }
 
+    /**
+     * 扣减商品库存
+     *
+     * @param stockList 商品库存列表
+     * @return 结果
+     */
     @Override
     @GlobalTransactional(name = "deduct-stock-tx", rollbackFor = Exception.class)
     public Result deductStock(List<ProductStockDTO> stockList) {
@@ -118,6 +132,12 @@ public class ProductSkusServiceImpl extends ServiceImpl<ProductSkusMapper, Produ
         }
     }
 
+    /**
+     * 还原商品库存
+     *
+     * @param stockList 商品库存列表
+     * @return 结果
+     */
     @Override
     @GlobalTransactional(name = "restore-stock-tx", rollbackFor = Exception.class)
     public Result restoreStock(List<ProductStockDTO> stockList) {

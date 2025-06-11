@@ -16,5 +16,10 @@
     <sql id="Base_Column_List">
         id, user_id, points, type, source, created_time
     </sql>
+    <update id="cleanOldLogs">
+        DELETE FROM user_points_log
+        WHERE created_time &lt; date_sub(curdate(), interval weekday(curdate()) day)
+        OR created_time >= date_add(date_sub(curdate(), interval weekday(curdate()) day), interval 7 day);
+    </update>
 
 </mapper>

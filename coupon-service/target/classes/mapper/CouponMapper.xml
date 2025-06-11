@@ -4,9 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.coupon.pojo.Coupon">
-        <id column="id" property="id" />
+        <id column="coupon_id" property="couponId" />
         <result column="store_id" property="storeId" />
         <result column="title" property="title" />
+        <result column="description" property="description" />
         <result column="pay_value" property="payValue" />
         <result column="actual_value" property="actualValue" />
         <result column="total_stock" property="totalStock" />
@@ -19,9 +20,62 @@
         <result column="updated_time" property="updatedTime" />
     </resultMap>
 
+    <!--用户获取优惠劵及其详细-->
+    <resultMap id="couponAndOrder" type="com.coupon.dto.CouponDetailDTO">
+            <id column="coupon_id" property="couponId" />
+            <result column="store_id" property="storeId" />
+            <result column="title" property="title" />
+            <result column="description" property="description" />
+            <result column="pay_value" property="payValue" />
+            <result column="actual_value" property="actualValue" />
+            <result column="type" property="type" />
+            <result column="scope" property="scope" />
+            <result column="category_id" property="categoryId" />
+            <result column="product_id" property="productId" />
+            <result column="valid_start_time" property="validStartTime" />
+            <result column="valid_end_time" property="validEndTime" />
+            <collection property="couponOrderDTOList" ofType="com.coupon.dto.CouponOrderDTO">
+                <id column="coupon_order_id" property="couponOrderId" />
+                <result column="user_id" property="userId" />
+                <result column="coupon_id" property="couponId" />
+                <result column="status" property="status" />
+                <result column="created_time" property="createdTime" />
+                <result column="pay_time" property="payTime" />
+                <result column="use_time" property="useTime" />
+            </collection>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, store_id, title, pay_value, actual_value, total_stock, available_stock, limit_per_user, valid_start_time, valid_end_time, status, created_time, updated_time
+        coupon_id, store_id, title,description, pay_value, actual_value, total_stock, available_stock, limit_per_user, valid_start_time, valid_end_time, status, created_time, updated_time
     </sql>
+
+    <select id="getCouponAndOrder" resultMap="couponAndOrder">
+        SELECT
+            c.coupon_id,
+            c.store_id,
+            c.title,
+            c.description,
+            c.pay_value,
+            c.actual_value,
+            c.type,
+            c.scope,
+            c.category_id,
+            c.product_id,
+            c.valid_start_time,
+            c.valid_end_time,
+            co.coupon_order_id,
+            co.user_id,
+            co.coupon_id,
+            co.status,
+            co.created_time,
+            co.pay_time,
+            co.use_time
+        FROM
+            coupon c
+        LEFT JOIN coupon_order co ON c.coupon_id = co.coupon_id
+        WHERE
+         co.user_id = #{userId}
+    </select>
 
 </mapper>

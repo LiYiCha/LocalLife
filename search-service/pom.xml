@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.life</groupId>
+        <artifactId>local-life</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <groupId>yc</groupId>
+    <artifactId>search-service</artifactId>
+    <name>search-service</name>
+
+    <dependencies>
+        <!--核心模块-->
+        <dependency>
+            <groupId>com.life</groupId>
+            <artifactId>life-common-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!--ES依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+        <!--ES客户端-->
+        <dependency>
+            <groupId>co.elastic.clients</groupId>
+            <artifactId>elasticsearch-java</artifactId>
+            <version>8.13.0</version>
+        </dependency>
+        <!-- RabbitMQ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <!-- 引入Feign依赖 -->
+        <dependency>
+            <groupId>com.life</groupId>
+            <artifactId>feign-api</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+</project>

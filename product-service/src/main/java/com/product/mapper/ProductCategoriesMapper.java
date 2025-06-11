@@ -1,5 +1,7 @@
 package com.product.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.product.pojo.ProductCategories;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ProductCategoriesMapper extends BaseMapper<ProductCategories> {
 
+    Page<ProductCategories> getByMerchantId(Integer merchantId, Page<ProductCategories> page);
 }

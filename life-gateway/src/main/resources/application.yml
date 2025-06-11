@@ -28,7 +28,7 @@ spring:
           response-body: '{"code":403,"msg":"非法请求，拒绝访问"}'  # 非法请求响应
         url-patterns:
           - /**                    # 保护所有接口
-          - "!/auth/*,/captcha/*"  # 排除认证接口（与白名单配合）      http-method-specify: true    # 启用请求方法前缀（GET:/api等）
+          - "'!/api/auth/*,/api/captcha/*,/api/files/*,/api/payment/*'"    # 排除认证接口（与白名单配合）
     gateway:
       discovery:
         locator:
@@ -43,6 +43,7 @@ spring:
               - "http://localhost:8083"
               - "http://localhost:8084"
               - "http://localhost:8085"
+              - "http://localhost:8087"
               - "http://localhost:8088"
             allowedMethods: ["GET","POST","DELETE","PUT","OPTIONS"]
             allowedHeaders: "*"
@@ -60,7 +61,7 @@ gateway:
 # 白名单路径（直接放行）
 url:
   white:
-    list: /auth/login,/auth/register,/auth/logout,/captcha/generate,/captcha/verify
+    list: /api/auth,/api/captcha,/api/payment/
 
 # Seata分布式事务配置
 seata:

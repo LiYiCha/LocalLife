@@ -7,6 +7,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -38,48 +41,56 @@ public class Addresses implements Serializable {
      * 关联到 users 表中的用户
      */
     @TableField("user_id")
+    @NotNull(message = "用户ID不能为空")
     private Long userId;
 
     /**
      * 收货人姓名
      */
     @TableField("name")
+    @NotBlank(message = "收货人姓名不能为空")
     private String name;
 
     /**
      * 电话
      */
     @TableField("phone")
+    @NotBlank(message = "电话不能为空")
     private String phone;
 
     /**
      * 省份/直辖市
      */
     @TableField("province")
+    @NotBlank(message = "省份/直辖市不能为空")
     private String province;
 
     /**
      * 城市
      */
     @TableField("city")
+    @NotBlank(message = "城市不能为空")
     private String city;
 
     /**
      * 区
      */
     @TableField("region")
+    @NotBlank(message = "区不能为空")
     private String region;
 
     /**
      * 详细地址(街道)
      */
     @TableField("detail_address")
+    @NotBlank(message = "详细地址(街道)不能为空")
     private String detailAddress;
 
     /**
      * 是否默认地址
      */
     @TableField("is_default")
+    @NotNull(message = "是否默认地址不能为空")
     private Byte isDefault;
 
     /**

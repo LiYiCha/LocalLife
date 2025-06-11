@@ -6,6 +6,7 @@
 		<artifactId>local-life</artifactId>
 		<groupId>com.life</groupId>
 		<version>1.0.0</version>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>feign-api</artifactId>
@@ -23,7 +24,9 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
+
 		</dependency>
+
 		<!--OK http 的依赖 -->
 		<dependency>
 			<groupId>io.github.openfeign</groupId>

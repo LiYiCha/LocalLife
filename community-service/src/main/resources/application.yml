@@ -9,8 +9,6 @@ spring:
       discovery:
         server-addr: localhost:8848
         namespace: 9ae782ba-77b6-43cd-b1be-0dcf25721ff4
-
-
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,24 +20,11 @@ spring:
       min-idle: 5
       max-active: 20
       max-wait: 60000
-  data:
-   redis:
-    # Redis服务器地址
-    host: localhost
-    # Redis服务器端口，默认是6379
-    port: 6379
-    # Redis密码（如果设置了）
-    password:
-    # Redis数据库索引（默认是0）
-    database: 0
-    # 连接超时时间（单位：毫秒）
-    timeout: 6000
+# 静态资源映射
+  web:
+    resources:
+      static-locations: classpath:/static/files/
 
-mybatis-plus:
-  configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath:/mapper/*Mapper.xml
-  type-aliases-package: com.community.pojo
-
-
+#上传文件的保存路径
+reggie:
+  path: D:\exploitation\work1\LocalLife\community-service\src\main\resources\static\files

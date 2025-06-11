@@ -21,7 +21,7 @@ import java.util.Arrays;
  * @since 2025-01-13
  */
 @RestController
-@RequestMapping("/userFavorites")
+@RequestMapping("/api/member/userFavorites")
 public class UserFavoritesController {
 
     @Autowired

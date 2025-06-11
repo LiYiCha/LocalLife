@@ -53,16 +53,15 @@ public class ProductImages implements Serializable {
     private String imageUrl;
 
     /**
-     * 是否主图
-     */
-    @TableField("is_main")
-    private Boolean isMain;
-
-    /**
      * 排序
      */
     @TableField("sort_order")
     private Integer sortOrder;
+    /**
+     * 媒体类型
+     */
+    @TableField("media_type")
+    private String mediaType;
 
     /**
      * 创建时间

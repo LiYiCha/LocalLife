@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/coupon")
+@RequestMapping("/api/coupon")
 public class CouponController {
 
     @Resource
@@ -37,8 +37,8 @@ public class CouponController {
      * @param userId   用户ID
      * @return 验证结果
      */
-    @GetMapping("/validate/{couponId}/{userId}")
-    public Result validateCoupon(@Validated @RequestParam("couponId") int couponId,@Validated @RequestParam("userId") int userId) {
+    @GetMapping("/validate")
+    public Result validateCoupon(@Validated @RequestParam("couponId") Integer couponId,@Validated @RequestParam("userId") Integer userId) {
         //验证用户的优惠劵状态
         Boolean aBoolean = cos.validateCouponOrder(couponId, userId);
         if (!aBoolean) {
@@ -55,9 +55,9 @@ public class CouponController {
      * @param orderAmount 订单金额（单位：元）
      * @return 折扣金额
      */
-    @GetMapping("/discount/{couponId}/{orderAmount}")
+    @GetMapping("/discount")
     public Result getDiscount(
-            @Validated @RequestParam("couponId") int couponId,
+            @Validated @RequestParam("couponId") Integer couponId,
             @Validated @RequestParam("orderAmount") BigDecimal orderAmount) {
 
         // 1. 验证优惠券是否存在
@@ -79,7 +79,7 @@ public class CouponController {
      * @param userId 用户ID
      * @return 抢购结果
      */
-    @PostMapping("/buy/{couponId}/{userId}")
+    @PostMapping("/buy")
     public Result buyCoupon(@RequestParam("couponId") Integer couponId, @RequestParam("userId") Integer userId) {
         Result result = couponService.deductCoupon(couponId, userId);
         if (result.getCode()==Result.success().getCode()) {
@@ -100,24 +100,15 @@ public class CouponController {
         return success ? Result.success(coupon) : Result.error("创建优惠券失败");
     }
 
-    /**
-     * 获取所有优惠券
-     * @return
-     */
-    @GetMapping("/getAll")
-    public Result getAllCoupons() {
-        List<Coupon> coupons = couponService.list();
-        return Result.success(coupons);
-    }
 
     /**
      * 获取优惠券
-     * @param id
+     * @param couponId
      * @return
      */
-    @GetMapping("/getById/{id}")
-    public Result getCouponById(@PathVariable("id") int id) {
-        Coupon coupon = couponService.getById(id);
+    @GetMapping("/getById")
+    public Result getCouponById(@RequestParam("couponId") Integer couponId) {
+        Coupon coupon = couponService.getById(couponId);
         return coupon != null ? Result.success(coupon) : Result.error("优惠券不存在");
     }
 
@@ -134,13 +125,13 @@ public class CouponController {
 
     /**
      * 商家删除优惠券
-     * @param id
+     * @param couponId
      * @param storeId
      * @return
      */
-    @PostMapping("/del/{id}/{storeId}")
-    public Result deleteCoupon(@PathVariable("id") int id, @PathVariable("storeId") int storeId) {
-        boolean success = couponService.removeByIdAndStoreId(id, storeId);
+    @PostMapping("/delByIdStoreId")
+    public Result deleteCoupon(@RequestParam("couponId") int couponId, @RequestParam("storeId") Integer storeId) {
+        boolean success = couponService.removeByIdAndStoreId(couponId, storeId);
         return success ? Result.success() : Result.error("删除优惠券失败");
     }
 
@@ -150,8 +141,8 @@ public class CouponController {
      * @param storeId
      * @return
      */
-    @GetMapping("/storeAll/{storeId}")
-    public Result getCouponsByStore(@PathVariable("storeId") int storeId) {
+    @GetMapping("/storeAll")
+    public Result getCouponsByStore(@RequestParam("storeId") Integer storeId) {
         List<Coupon> coupons = couponService.lambdaQuery()
                 .eq(Coupon::getStoreId, storeId)
                 .list();
@@ -165,11 +156,9 @@ public class CouponController {
      */
     @GetMapping("/userAll")
     public Result getUserCoupons(
-            @RequestParam("userId") int userId,
-            @RequestParam(defaultValue = "1",name = "pageNum",required = false) int page,
-            @RequestParam(defaultValue = "10",name = "size",required = false) int size) {
-
-        Page<Coupon> couponPage = couponService.getCouponsByUser(userId, page, size);
-        return Result.success(couponPage);
+            @RequestParam("userId") Integer userId,
+            @RequestParam(defaultValue = "1",name = "pageNum",required = false) Integer page,
+            @RequestParam(defaultValue = "10",name = "size",required = false) Integer size) {
+        return couponService.getCouponsByUser(userId, page, size);
     }
 }

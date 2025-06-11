@@ -1,6 +1,7 @@
 
 package com.gateway.filter;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.gateway.config.UrlWhiteConfig;
 import com.core.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -30,35 +32,46 @@ public class GatewayFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        // 获取请求路径
-        String path = exchange.getRequest().getURI().getPath();
-        logger.info("请求路径是: {}", path);
-        // 检查路径是否在白名单中
         List<String> whiteList = urlWhiteConfig.getList();
+        String path = exchange.getRequest().getURI().getPath();
+
+        // 白名单路径直接放行
         if (whiteList.stream().anyMatch(path::startsWith)) {
-            // 如果在白名单中，直接放行
             return chain.filter(exchange);
         }
 
-        // 获取请求头中的token
-        String token = exchange.getRequest().getHeaders().getFirst("token");
-
-        if (token == null || token.isEmpty()) {
-            // 如果token缺失，返回401 Unauthorized
-            logger.warn("Unauthorized access attempt to path: {} with missing token", path);
-            return createErrorResponse(exchange, HttpStatus.UNAUTHORIZED, "Token is missing");
+        // 获取 Token
+        String token = exchange.getRequest().getHeaders().getFirst("Authorization");
+        if (token == null || !token.startsWith("Bearer ")) {
+            return createErrorResponse(exchange, HttpStatus.UNAUTHORIZED, "Missing or invalid token");
         }
 
-        // 验证token
-        boolean verify = TokenUtil.verify(token);
-        if (!verify) {
-            // 如果token验证失败，返回401 Unauthorized
-            logger.warn("Unauthorized access attempt to path: {} with invalid token: {}", path, token);
+        token = token.substring(7); // 去掉 Bearer 前缀
+
+        // 验证 Token
+        if (!TokenUtil.verify(token)) {
             return createErrorResponse(exchange, HttpStatus.UNAUTHORIZED, "Invalid token");
         }
-        // 如果token验证成功，放行
+
+        // 解析角色并添加到请求头（供下游服务使用）
+        try {
+            DecodedJWT jwt = TokenUtil.decode(token);
+            String role = jwt.getClaim("role").asString();
+            String username = jwt.getClaim("username").asString();
+
+            ServerHttpRequest request = exchange.getRequest().mutate()
+                    .header("X-User-Name", username)
+                    .header("X-User-Role", role)
+                    .build();
+
+            exchange = exchange.mutate().request(request).build();
+        } catch (Exception e) {
+            return createErrorResponse(exchange, HttpStatus.UNAUTHORIZED, "Failed to parse token");
+        }
+
         return chain.filter(exchange);
     }
+
 
     private Mono<Void> createErrorResponse(ServerWebExchange exchange, HttpStatus status, String message) {
         exchange.getResponse().setStatusCode(status);

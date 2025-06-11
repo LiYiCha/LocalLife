@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2025-01-13
  */
 @RestController
-@RequestMapping("/userCheckins")
+@RequestMapping("/api/member/userCheckins")
 public class UserCheckinsController {
 
     @Resource
@@ -34,18 +34,9 @@ public class UserCheckinsController {
      * @param userId
      * @return
      */
-    @PostMapping("/{userId}")
-    public Result checkin(@PathVariable("userId") Integer userId) {
-        Result checkin = ucs.checkin(userId);
-        if (checkin.getCode() != 200) {
-            return checkin;
-        }
-        // 更新用户积分，签到奖励的积分值(1-签到，2-消费，3-评价）
-        boolean pointsUpdated = us.updateUserPoints(userId, sign_reward, (byte) 1, "签到奖励");
-        if (!pointsUpdated) {
-            return Result.error("积分获取失败!");
-        }
-        return checkin;
+    @PostMapping("/add")
+    public Result checkin(@RequestParam("userId") Integer userId) {
+        return ucs.checkin(userId);
     }
 
     /**
@@ -58,9 +49,9 @@ public class UserCheckinsController {
     public Result update(@RequestBody UserCheckins checkin) {
         boolean flag = ucs.updateById(checkin);
         if (!flag) {
-            return Result.error();
+            return Result.error("签到记录修改失败!");
         }
-        return Result.success();
+        return Result.success("签到记录修改成功!");
     }
 
     /**
@@ -73,9 +64,9 @@ public class UserCheckinsController {
     public Result delete(@RequestParam("id") Long id) {
         boolean flag = ucs.removeById(id);
         if (!flag) {
-            return Result.error();
+            return Result.error("签到记录删除失败!");
         }
-        return Result.success();
+        return Result.success("签到记录删除成功!");
     }
 
     /**
@@ -86,12 +77,6 @@ public class UserCheckinsController {
      */
     @PostMapping("/get")
     public Result get(@RequestParam("userId") Integer userId) {
-        QueryWrapper<UserCheckins> qw = new QueryWrapper<>();
-        qw.eq("user_id", userId);
-        List<UserCheckins> checkins = ucs.list(qw);
-        if (checkins == null) {
-            return Result.error();
-        }
-        return Result.success(checkins);
+        return  ucs.getCheckinInfo(userId);
     }
 }

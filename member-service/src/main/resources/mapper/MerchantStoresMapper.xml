@@ -6,17 +6,21 @@
     <resultMap id="BaseResultMap" type="com.member.pojo.MerchantStores">
         <id column="store_id" property="storeId" />
         <result column="merchant_id" property="merchantId" />
-        <result column="name" property="name" />
+        <result column="store_name" property="storeName" />
         <result column="description" property="description" />
         <result column="logo_url" property="logoUrl" />
         <result column="address" property="address" />
+        <result column="day_of_week" property="dayOfWeek" />
+        <result column="opening_time" property="openingTime" />
+        <result column="closing_time" property="closingTime" />
+        <result column="status" property="status" />
         <result column="created_time" property="createdTime" />
         <result column="updated_time" property="updatedTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        store_id, merchant_id, name, description, logo_url, address, created_time, updated_time
+        store_id, merchant_id, storeName, description, logo_url, address, day_of_week, opening_time, closing_time, status, created_time, updated_time
     </sql>
 
 </mapper>

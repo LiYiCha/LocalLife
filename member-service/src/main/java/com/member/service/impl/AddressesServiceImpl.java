@@ -6,6 +6,7 @@ import com.member.mapper.AddressesMapper;
 import com.member.service.AddressesService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -24,8 +25,9 @@ public class AddressesServiceImpl extends ServiceImpl<AddressesMapper, Addresses
      */
     @Override
     public boolean addAddress(Addresses address) {
-        // 如果设置为默认地址，需要将其他地址设置为非默认
-        if (address.getIsDefault() == 1) {
+        // 检查 isDefault 是否为 null，避免空指针异常
+        Byte isDefault = address.getIsDefault();
+        if (isDefault != null && isDefault == 1) {
             // 创建查询条件，查找同一用户的其他地址
             QueryWrapper<Addresses> wrapper = new QueryWrapper<>();
             wrapper.eq("user_id", address.getUserId())
@@ -46,22 +48,24 @@ public class AddressesServiceImpl extends ServiceImpl<AddressesMapper, Addresses
      */
     @Override
     public boolean updateAddress(Addresses address) {
-        // 如果设置为默认地址，需要将其他地址设置为非默认
-        if (address.getIsDefault() == 1) {
-            // 创建查询条件，查找同一用户的其他地址
+        // 检查 isDefault 是否为 null，避免空指针异常
+        Byte isDefault = address.getIsDefault();
+        if (isDefault != null && isDefault == 1) {
+            // 创建查询条件，查找同一用户的其他默认地址
             QueryWrapper<Addresses> wrapper = new QueryWrapper<>();
             wrapper.eq("user_id", address.getUserId())
-                    .ne("address_id", address.getAddressId()) // 排除当前地址
-                    .eq("is_default", 1); // 只查找默认地址
+                    .ne("address_id", address.getAddressId())
+                    .eq("is_default", 1);
 
-            // 更新其他地址为非默认
-            Addresses otherAddress = new Addresses();
-            otherAddress.setIsDefault((byte) 0); // 设置为非默认
-            this.update(otherAddress, wrapper);
+            // 检查是否存在其他默认地址
+            if (this.count(wrapper) > 0) {
+                // 更新其他地址为非默认
+                Addresses otherAddress = new Addresses();
+                otherAddress.setIsDefault((byte) 0);
+                this.update(otherAddress, wrapper);
+            }
         }
-        // 更新当前地址
-        QueryWrapper<Addresses> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("address_id", address.getAddressId());
-        return this.update(address, queryWrapper);
+        return this.updateById(address);
     }
+
 }

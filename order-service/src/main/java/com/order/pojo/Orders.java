@@ -43,6 +43,12 @@ public class Orders implements Serializable {
     private Integer userId;
 
     /**
+     * 商家ID
+     */
+    @TableField("merchant_id")
+    private Integer merchantId;
+
+    /**
      * 订单编号
      */
     @TableField("order_no")

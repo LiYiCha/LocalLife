@@ -7,7 +7,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -39,18 +41,21 @@ public class MerchantStores implements Serializable {
      * 关联到 merchants 表中的商家
      */
     @TableField("merchant_id")
+    @NotNull(message = "商家ID不能为空")
     private Integer merchantId;
 
     /**
      * 店铺名称
      */
-    @TableField("name")
-    private String name;
+    @TableField("store_name")
+    @NotBlank(message = "店铺名称不能为空")
+    private String storeName;
 
     /**
      * 店铺描述
      */
     @TableField("description")
+    @NotBlank(message = "店铺描述不能为空")
     private String description;
 
     /**
@@ -63,6 +68,7 @@ public class MerchantStores implements Serializable {
      * 店铺地址
      */
     @TableField("address")
+    @NotBlank(message = "店铺地址不能为空")
     private String address;
 
     /**
@@ -87,6 +93,7 @@ public class MerchantStores implements Serializable {
      * 状态
      */
     @TableField("status")
+    @NotNull(message = "店铺状态不能为空")
     private Byte status; // 0: 正常营业, 1: 暂停营业, 2: 关闭
 
     /**

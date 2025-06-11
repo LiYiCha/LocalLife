@@ -1,6 +1,5 @@
 package com.core.utils;
 
-import lombok.Getter;
 import java.io.Serializable;
 /**
  * 文件名: ResultEnum
@@ -8,7 +7,6 @@ import java.io.Serializable;
  * 创建时间:2024/10/23 17:01
  * 返回结果枚举
  */
-@Getter
 public enum ResultEnum implements Serializable {
 
     /* 成功状态码 */
@@ -65,16 +63,16 @@ public enum ResultEnum implements Serializable {
         this.message = message;
     }
 
-    public int code() {
+    public int getCode() {
         return code;
-    }
-
-    public String message() {
-        return message;
     }
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public void setMessage(String message) {

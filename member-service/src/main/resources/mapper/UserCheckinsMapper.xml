@@ -12,9 +12,42 @@
         <result column="updated_time" property="updatedTime" />
     </resultMap>
 
+    <resultMap id="UserSignInfo" type="com.member.dto.CheckinsDTO">
+        <id column="user_id" property="userId" />
+        <result column="checkin_date" property="checkinDate" />
+        <result column="consecutive_days" property="consecutiveDays" />
+        <collection property="pointsLog" ofType="com.member.dto.UserPointsLogDTO">
+            <result column="points" property="points" />
+            <result column="type" property="type" />
+            <result column="source" property="source" />
+            <result column="created_time" property="createdTime" />
+        </collection>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         checkin_id, user_id, checkin_date, consecutive_days, created_time, updated_time
     </sql>
+    <!--获取本周用户签到信息-->
+    <select id="getCheckinInfo" resultMap="UserSignInfo">
+        select
+        u.user_id,
+        u.checkin_date,
+        u.consecutive_days,
+        l.points,
+        l.type,
+        l.source,
+        l.created_time
+        from
+        user_checkins u
+        left join user_points_log l on u.user_id = l.user_id
+        where
+        u.user_id = #{userId}
+        and l.created_time > date_sub(curdate(), interval weekday(curdate()) day)
+        and l.created_time &lt;= date_add(date_sub(curdate(), interval weekday(curdate()) day), interval 7 day)
+        order by
+        l.created_time desc
+    </select>
+
 
 </mapper>

@@ -27,7 +27,13 @@ public interface OrdersService extends IService<Orders> {
 
         Result cancelOrder(Integer userId,Integer orderId);
 
-    boolean removeById(Integer userId,Integer id);
+        boolean removeById(Integer userId,Integer id);
 
-    Result getUserOrders(Integer userId, Integer pageNum, Integer pageSize);
+        Result getUserOrders(Integer userId,String status, Integer pageNum, Integer pageSize);
+
+        Result getOrderDetail(Integer userId, Integer orderId);
+
+        Result getOrdersByMerchant(Integer merchantId, String status, Integer pageNum, Integer pageSize);
+
+        Result updateStatusByMerchant(Integer orderId, Integer merchantId);
 }

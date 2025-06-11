@@ -74,7 +74,7 @@ public class Products implements Serializable {
      * 是否推荐
      */
     @TableField("is_recommend")
-    private Boolean isRecommend;
+    private Integer isRecommend;
 
     /**
      * 排序权重

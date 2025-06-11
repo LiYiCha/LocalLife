@@ -61,6 +61,12 @@ public class Payments implements Serializable {
     private String status;
 
     /**
+     * 支付方式
+     */
+    @TableField("payment_method")
+    private String paymentMethod;
+
+    /**
      * 创建时间
      */
     @TableField(value = "created_time", fill = FieldFill.INSERT)

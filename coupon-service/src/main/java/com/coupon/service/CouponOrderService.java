@@ -3,6 +3,8 @@ package com.coupon.service;
 import com.coupon.pojo.CouponOrder;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 优惠券订单表 服务类
@@ -13,7 +15,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CouponOrderService extends IService<CouponOrder> {
 
-    Boolean validateCouponOrder(int couponId, int userId);
+    Boolean validateCouponOrder(Integer couponId, Integer userId);
 
-    int userCoupon(int couponId, int userId);
+    int userCoupon(Integer couponId, Integer userId);
+
 }

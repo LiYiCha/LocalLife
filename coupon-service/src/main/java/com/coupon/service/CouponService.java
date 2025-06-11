@@ -18,13 +18,13 @@ import java.util.List;
  */
 public interface CouponService extends IService<Coupon> {
 
-    Boolean validateCoupon(int couponId, int userId);
+    Boolean validateCoupon(Integer couponId, Integer userId);
 
     BigDecimal calculateDiscount(BigDecimal orderAmount, Coupon coupon);
 
-    boolean removeByIdAndStoreId(int id, int storeId);
+    boolean removeByIdAndStoreId(Integer couponId, Integer storeId);
 
-    Page<Coupon> getCouponsByUser(int userId, int page, int size);
+    Result getCouponsByUser(Integer userId, Integer page, Integer size);
 
     Result deductCoupon(Integer couponId, Integer userId);
 }

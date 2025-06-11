@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UserPointsLogMapper extends BaseMapper<UserPointsLog> {
 
+    void cleanOldLogs();
 }

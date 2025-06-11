@@ -2,13 +2,13 @@ server:
   port: 8084
 
 spring:
+  application:
+    name: coupon-service
   cloud:
     nacos:
       server-addr: localhost:8848
       discovery:
         namespace: 9ae782ba-77b6-43cd-b1be-0dcf25721ff4
-  application:
-    name: coupon-service
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver

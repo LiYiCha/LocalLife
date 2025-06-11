@@ -18,7 +18,7 @@ import java.util.List;
  * @since 2025-01-13
  */
 @RestController
-@RequestMapping("/userPointsLog")
+@RequestMapping("/api/member/userPointsLog")
 public class UserPointsLogController {
 
     @Autowired

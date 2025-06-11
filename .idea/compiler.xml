@@ -8,18 +8,40 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="life-common-core" />
-        <module name="life-common" />
         <module name="life-gateway" />
         <module name="life-common-dataresource" />
         <module name="coupon-service" />
-        <module name="community-service" />
         <module name="life-modules" />
-        <module name="member-service" />
         <module name="product-service" />
-        <module name="order-service" />
+        <module name="file-service" />
         <module name="life-auth" />
         <module name="feign-api" />
+        <module name="payment-system" />
+        <module name="community-service" />
+        <module name="search-service" />
+        <module name="member-service" />
+        <module name="order-service" />
       </profile>
     </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="community-service" options="-parameters" />
+      <module name="coupon-service" options="-parameters" />
+      <module name="feign-api" options="-parameters" />
+      <module name="file-service" options="-parameters" />
+      <module name="life-auth" options="-parameters" />
+      <module name="life-common" options="-parameters" />
+      <module name="life-common-core" options="-parameters" />
+      <module name="life-common-dataresource" options="-parameters" />
+      <module name="life-gateway" options="-parameters" />
+      <module name="life-modules" options="-parameters" />
+      <module name="local-life" options="-parameters" />
+      <module name="member-service" options="-parameters" />
+      <module name="order-service" options="-parameters" />
+      <module name="payment-system" options="-parameters" />
+      <module name="product-service" options="-parameters" />
+      <module name="search-service" options="-parameters" />
+    </option>
   </component>
 </project>

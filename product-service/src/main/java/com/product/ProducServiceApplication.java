@@ -8,10 +8,13 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableFeignClients(basePackages = "com.feign.client")
-@ComponentScan(basePackages = {"com.product", "com.core"})
+@ComponentScan(basePackages = {"com.product", "com.core","com.dataresource"})
 @MapperScan("com.product.mapper")
 public class ProducServiceApplication {
-
+	static {
+		System.setProperty("org.apache.commons.logging.Log",
+				"org.apache.commons.logging.impl.NoOpLog");
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(ProducServiceApplication.class, args);
 	}

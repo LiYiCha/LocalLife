@@ -1,5 +1,6 @@
 package com.member.service;
 
+import com.core.utils.Result;
 import com.member.pojo.Merchants;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -14,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface MerchantsService extends IService<Merchants> {
 
     boolean deleteMerchant(Integer merchantId);
+
+    Result getByMerchantUserName(String userName);
 }

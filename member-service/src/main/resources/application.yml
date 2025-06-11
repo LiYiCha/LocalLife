@@ -4,13 +4,6 @@ server:
 spring:
   application:
     name: member-service
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
-        namespace: 9ae782ba-77b6-43cd-b1be-0dcf25721ff4
-
-
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,46 +15,8 @@ spring:
       min-idle: 5
       max-active: 20
       max-wait: 60000
-  data:
-   redis:
-    # Redis服务器地址
-    host: localhost
-    # Redis服务器端口，默认是6379
-    port: 6379
-    # Redis密码（如果设置了）
-    password:
-    # Redis数据库索引（默认是0）
-    database: 0
-    # 连接超时时间（单位：毫秒）
-    timeout: 6000
 
 mybatis-plus:
-  configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath:/mapper/*Mapper.xml
   type-aliases-package: com.member.pojo
 
-#Seata配置
-seata:
-  tx-service-group: my_test_tx_group # 一定用这个默认的
-  enabled: true
-  registry: # 注册中心
-    # 配置 seata 的注册中心, 告诉 seata client 怎么去访问 seata server 事务协调者进行通信
-    type: nacos
-    nacos:
-      server-addr: 127.0.0.1:8848 # seata-server 所在的注册中心地址
-      application: seata-server # 指定 seata-server 在注册中心的 服务名， (默认 seata-server)
-      username: nacos
-      password: nacos
-      group: SEATA_GROUP # 默认 SEATA_GROUP
-      namespace: 9ae782ba-77b6-43cd-b1be-0dcf25721ff4
-  config:
-    # 配置 seata 的配置中心，可以读取关于 seata client 的一些配置，即 "seata\seata\script\config-center\config.txt" 中的配置
-    type: nacos
-    nacos: # 配置中心
-      server-addr: 127.0.0.1:8848
-      username: nacos
-      password: nacos
-      group: SEATA_GROUP
-      namespace: 9ae782ba-77b6-43cd-b1be-0dcf25721ff4
+

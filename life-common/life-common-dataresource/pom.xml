@@ -4,9 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.life</groupId>
-        <artifactId>local-life</artifactId>
+        <artifactId>life-common</artifactId>
         <version>1.0.0</version>
-        <relativePath>../../local-life/pom.xml</relativePath>
     </parent>
     <artifactId>life-common-dataresource</artifactId>
 

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.core.utils.Result;
 import com.product.pojo.ProductCategories;
 import com.product.service.ProductCategoriesService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +17,9 @@ import org.springframework.web.bind.annotation.*;
  * @author 一茶
  * @since 2025-01-27
  */
+@Api(tags = "商品分类控制器")
 @RestController
-@RequestMapping("/productCategories")
+@RequestMapping("/api/product/productCategories")
 public class ProductCategoriesController {
 
     @Autowired
@@ -29,6 +32,7 @@ public class ProductCategoriesController {
      * @param size
      * @return
      */
+    @ApiOperation(value="分页查询商品分类")
     @GetMapping("/page")
     public Result getCategoriesPage(
             @RequestParam(defaultValue = "1",name = "page",required = false) Integer page,
@@ -43,7 +47,8 @@ public class ProductCategoriesController {
      * @param id
      * @return
      */
-    @GetMapping("/getById/{id}")
+    @ApiOperation(value="根据id查询商品分类")
+    @GetMapping("/getById")
     public Result getCategoryById(@RequestParam("id") Integer id) {
         ProductCategories category = productCategoriesService.getById(id);
         return Result.success(category);
@@ -55,6 +60,7 @@ public class ProductCategoriesController {
      * @param category
      * @return
      */
+    @ApiOperation(value="创建商品分类")
     @PostMapping("/add")
     public Result createCategory(@RequestBody ProductCategories category) {
         boolean success = productCategoriesService.save(category);
@@ -67,6 +73,7 @@ public class ProductCategoriesController {
      * @param category
      * @return
      */
+    @ApiOperation(value="更新商品分类")
     @PostMapping("/update")
     public Result updateCategory(@RequestBody ProductCategories category) {
         boolean success = productCategoriesService.updateById(category);
@@ -79,9 +86,24 @@ public class ProductCategoriesController {
      * @param id
      * @return
      */
-    @PostMapping("/delete/{id}")
+    @ApiOperation(value="删除商品分类")
+    @PostMapping("/delete")
     public Result deleteCategory(@RequestParam("id") Integer id) {
         boolean success = productCategoriesService.removeById(id);
         return success ? Result.success() : Result.error("删除分类失败");
+    }
+
+    /**
+     * 根据商家id查询分类
+     *
+     * @param merchantId
+     * @return
+     */
+    @ApiOperation(value = "商家查询分类")
+    @GetMapping("/getByMerchantId")
+    public Result getByMerchantId(@RequestParam("merchantId") Integer merchantId,
+                                  @RequestParam(defaultValue = "1",name = "page",required = false) Integer page,
+                                  @RequestParam(defaultValue = "10",name = "size",required = false) Integer size) {
+        return productCategoriesService.getByMerchantId(merchantId,page,size);
     }
 }

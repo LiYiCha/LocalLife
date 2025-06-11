@@ -19,23 +19,26 @@ import java.util.List;
  * @since 2025-01-13
  */
 @RestController
-@RequestMapping("/merchants")
+@RequestMapping("/api/member/merchants")
 public class MerchantsController {
 
     @Autowired
     private MerchantsService ms;
 
     /**
-     * 添加
-     * @param merchants
+     * 注册
+     * @param username
+     * @param password
      * @return
      */
     @PostMapping("/add")
-    public Result add(@RequestBody Merchants merchants) {
+    public Result add(@RequestParam("username") String username,
+                      @RequestParam("password") String password){
         // 密码加密加盐
-        String pw = merchants.getPassword();
-        MD5Utils.encrypt(pw);
-        //保存密码
+        String pw = MD5Utils.encrypt(password);
+        //保存
+        Merchants merchants = new Merchants();
+        merchants.setUsername(username);
         merchants.setPassword(pw);
         boolean save = ms.save(merchants);
         if (save) {
@@ -56,9 +59,9 @@ public class MerchantsController {
         Merchants merchants = ms.getOne(new QueryWrapper<Merchants>().eq("username", username));
         if (merchants!=null){
             //密码加密加盐
-            MD5Utils.encrypt(password);
+            String enPwd = MD5Utils.encrypt(password);
             //判断密码是否正确
-            if (merchants.getPassword().equals(password)){
+            if (merchants.getPassword().equals(enPwd)){
                 return Result.success(merchants);
             }else{
                 return Result.error("密码错误");
@@ -92,24 +95,18 @@ public class MerchantsController {
         if (remove) {
             return Result.success();
         }
-        return Result.error("注销失败，还有未关闭的店铺");
+        return Result.error(40011, "存在关联店铺，请先关闭所有店铺后再执行注销操作");
     }
 
 
     /**
-     * 根据id查询
-     * @param merchantId
+     * 根据商家账号查询商家信息
+     * @param username
      * @return
      */
-    @GetMapping("/get")
-    public Result get(@RequestParam("merchantId") Integer merchantId) {
-        QueryWrapper<Merchants> qw = new QueryWrapper<>();
-        qw.eq("merchant_id",merchantId);
-        List<Merchants> merchants = ms.list(qw);
-        if (merchants!=null){
-            return Result.success(merchants);
-        }
-        return Result.error();
+    @GetMapping("/getByMerchantUserName")
+    public Result getByMerchantUserName(@RequestParam("username") String username) {
+        return ms.getByMerchantUserName(username);
     }
 
 }

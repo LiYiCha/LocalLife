@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.product.pojo.ShoppingCart">
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
+        <result column="merchant_id" property="merchantId" />
         <result column="product_id" property="productId" />
         <result column="quantity" property="quantity" />
         <result column="selected" property="selected" />
@@ -15,7 +16,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id, product_id, quantity, selected, created_time, updated_time
+        id, user_id,merchant_id, product_id, quantity, selected, created_time, updated_time
     </sql>
 
 </mapper>

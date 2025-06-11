@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.core.utils.Result;
 import com.product.pojo.ShoppingCart;
 import com.product.service.ShoppingCartService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +19,9 @@ import java.util.List;
  * @author 一茶
  * @since 2025-01-27
  */
+@Api(tags = "购物车控制器")
 @RestController
-@RequestMapping("/shoppingCart")
+@RequestMapping("/api/product/shoppingCart")
 public class ShoppingCartController {
 
     @Autowired
@@ -30,8 +33,9 @@ public class ShoppingCartController {
      * @param userId 用户ID
      * @return 购物车列表
      */
-    @GetMapping("/user/{userId}")
-    public Result getCartByUser(@PathVariable("userId") Integer userId) {
+    @ApiOperation(value = "根据用户ID获取购物车列表")
+    @GetMapping("/user")
+    public Result getCartByUser(@RequestParam("userId") Integer userId) {
         QueryWrapper<ShoppingCart> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId)
                 .orderByDesc("created_time");
@@ -45,6 +49,7 @@ public class ShoppingCartController {
      * @param cartItem 购物车商品信息
      * @return 添加结果
      */
+    @ApiOperation(value = "添加商品到购物车")
     @PostMapping("/add")
     public Result addToCart(@RequestBody ShoppingCart cartItem) {
         boolean success = shoppingCartService.save(cartItem);
@@ -57,6 +62,7 @@ public class ShoppingCartController {
      * @param cartItem 购物车商品信息
      * @return 更新结果
      */
+    @ApiOperation(value = "更新购物车商品数量")
     @PostMapping("/update")
     public Result updateCartItem(@RequestBody ShoppingCart cartItem) {
         boolean success = shoppingCartService.updateById(cartItem);
@@ -70,7 +76,8 @@ public class ShoppingCartController {
      * @param userId 用户userId
      * @return 删除结果
      */
-    @PostMapping("/del/{id}/{userId}")
+    @ApiOperation(value = "从购物车中删除商品")
+    @PostMapping("/del")
     public Result deleteCartItem(@RequestParam("id") Integer id, @RequestParam("userId") Integer userId) {
         QueryWrapper<ShoppingCart> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id)
@@ -84,6 +91,7 @@ public class ShoppingCartController {
      * @param ids 购物车ID列表
      * @return 删除结果
      */
+    @ApiOperation(value = "从购物车中删除商品（支持批量删除）")
     @PostMapping("/batchDelete")
     public Result deleteCartItems(@RequestBody List<Integer> ids) {
         if (ids == null || ids.isEmpty()) {

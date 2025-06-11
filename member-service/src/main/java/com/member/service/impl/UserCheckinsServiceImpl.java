@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.core.utils.RedisUtil;
 import com.core.utils.Result;
+import com.member.dto.CheckinsDTO;
 import com.member.mapper.UserCheckinsMapper;
+import com.member.mapper.UserPointsLogMapper;
 import com.member.pojo.UserCheckins;
+import com.member.pojo.UserPointsLog;
 import com.member.service.UserCheckinsService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -14,11 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserCheckinsServiceImpl extends ServiceImpl<UserCheckinsMapper, UserCheckins> implements UserCheckinsService {
 
+    @Resource
+    private UserCheckinsMapper userCheckinsMapper;
+    @Resource
+    private UserPointsLogMapper userPointsLogMapper;
     @Resource
     private RedisUtil redisUtil;
 
@@ -62,12 +70,24 @@ public class UserCheckinsServiceImpl extends ServiceImpl<UserCheckinsMapper, Use
             checkinRecord.setCheckinDate(Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
             // 判断是否是连续签到，更新连续天数
+
+            //更新用户积分，签到奖励的积分值(1-签到，2-消费，3-评价）
+            UserPointsLog log = new UserPointsLog();
+            log.setUserId(userId);
+            log.setType((byte) 1);
             if (lastCheckin != null && lastCheckin.getCheckinDate().toInstant()
                     .atZone(ZoneId.systemDefault()).toLocalDate().plusDays(1).isEqual(today)) {
                 checkinRecord.setConsecutiveDays((short) (lastCheckin.getConsecutiveDays() + 1));
+                // 生成随机积分值，范围为 1-20
+                Random random = new Random();
+                log.setPoints(random.nextInt(20) + 1);
+                log.setSource("连续签到奖励");
             } else {
                 // 如果连续签到天数为 1，则重置为 1
                 checkinRecord.setConsecutiveDays((short) 1);
+                log.setPoints(1);
+                log.setSource("签到奖励");
+                userPointsLogMapper.insert(log);
             }
 
             // 保存到数据库
@@ -75,12 +95,11 @@ public class UserCheckinsServiceImpl extends ServiceImpl<UserCheckinsMapper, Use
             if (!save) {
                 return Result.error("签到失败");
             }
-            return Result.success();
+            return Result.success(log);
         } finally {
             // 释放锁
             if (locked) {
                 releaseLock(lockKey);
-                System.out.println("锁已释放，lockKey: " + lockKey);
             }
         }
     }
@@ -93,10 +112,8 @@ public class UserCheckinsServiceImpl extends ServiceImpl<UserCheckinsMapper, Use
      * @return 是否加锁成功
      */
     private boolean tryLock(String lockKey, int timeout) {
-        System.out.println("尝试获取锁，lockKey: " + lockKey);
         // 使用 setIfAbsent 方法设置锁，并同时设置过期时间
         boolean success = redisUtil.setIfAbsent(lockKey, "locked", timeout, TimeUnit.SECONDS);
-        System.out.println("setIfAbsent 返回值: " + success);
         return success;
     }
 
@@ -106,7 +123,6 @@ public class UserCheckinsServiceImpl extends ServiceImpl<UserCheckinsMapper, Use
      * @param lockKey 锁的 Key
      */
     private void releaseLock(String lockKey) {
-        System.out.println("释放锁，lockKey: " + lockKey);
         redisUtil.delete(lockKey);
     }
 
@@ -135,5 +151,21 @@ public class UserCheckinsServiceImpl extends ServiceImpl<UserCheckinsMapper, Use
      */
     private String getCheckinKey(Integer userId, int year, int month) {
         return CHECKIN_KEY_PREFIX + userId + ":" + year + ":" + month;
+    }
+
+    /**
+     * 获取用户签到信息
+     *
+     * @param userId 用户ID
+     * @return 签到信息
+     */
+    @Override
+    public Result getCheckinInfo(Integer userId) {
+        CheckinsDTO checkinInfo = userCheckinsMapper.getCheckinInfo(userId);
+        if (checkinInfo == null) {
+            return Result.error("用户不存在");
+        }else {
+            return Result.success(checkinInfo);
+        }
     }
 }

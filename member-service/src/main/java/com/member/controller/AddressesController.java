@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2025-01-13
  */
 @RestController
-@RequestMapping("/addresses")
+@RequestMapping("/api/member/addresses")
 public class AddressesController {
 
     @Autowired
@@ -37,9 +37,9 @@ public class AddressesController {
     public Result add(@RequestBody Addresses address){
         boolean flag = ads.addAddress(address);
         if (!flag){
-            return Result.error();
+            return Result.error("添加地址失败");
         }
-        return Result.success();
+        return Result.success("添加地址成功");
     }
     /**
      * 更新地址
@@ -50,9 +50,9 @@ public class AddressesController {
     public Result update(@RequestBody Addresses address){
         boolean flag = ads.updateAddress(address);
         if (!flag){
-            return Result.error();
+            return Result.error("更新地址失败");
         }
-        return Result.success();
+        return Result.success("更新地址成功");
     }
 
     /**
@@ -64,9 +64,9 @@ public class AddressesController {
     public Result delete(@Validated @RequestParam("id") Integer id){
         boolean flag = ads.removeById(id);
         if (!flag){
-            return Result.error();
+            return Result.error("删除地址失败");
         }
-        return Result.success();
+        return Result.success("删除地址成功");
     }
 
     /**
@@ -78,9 +78,9 @@ public class AddressesController {
     public Result deleteBatch(@RequestParam("ids") @Size(min = 1) Integer[] ids){
         boolean flag = ads.removeByIds(Arrays.asList(ids));
         if (!flag){
-            return Result.error();
+            return Result.error("批量删除地址失败！");
         }
-        return Result.success();
+        return Result.success("批量删除地址成功！");
     }
 
     /**
@@ -93,9 +93,29 @@ public class AddressesController {
         QueryWrapper<Addresses> qw = new QueryWrapper<>();
         qw.eq("user_id",userId);
         List<Addresses> address = ads.list(qw);
-        if(address.size()==0||address==null){
-            return Result.error();
-        }
+        return Result.success(address);
+    }
+
+    /**
+     * 根据用户id获取默认地址
+     * @param userId
+     * @return
+     */
+    @GetMapping("/getDefaultByUserId")
+    public Result getDefaultByUserId(@RequestParam("userId") Integer userId){
+        QueryWrapper<Addresses> qw = new QueryWrapper<>();
+        qw.eq("user_id",userId).eq("is_default",1);
+        Addresses address = ads.getOne(qw);
+        return Result.success(address);
+    }
+    /**
+     * 根据地址id获取地址
+     * @param id
+     * @return
+     */
+    @GetMapping("/getById")
+    public Result getById(@RequestParam("id") Integer id){
+        Addresses address = ads.getById(id);
         return Result.success(address);
     }
 }

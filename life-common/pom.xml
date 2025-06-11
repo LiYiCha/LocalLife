@@ -7,9 +7,11 @@
 		<artifactId>local-life</artifactId>
 		<version>1.0.0</version>
 	</parent>
-
-	<artifactId>life-common</artifactId>
-	<description>公共模块</description>
+		<groupId>com.life</groupId>
+		<artifactId>life-common</artifactId>
+		<packaging>pom</packaging>
+		<version>1.0.0</version>
+		<description>公共模块</description>
 <!--	<properties>-->
 <!--		<maven.compiler.source>17</maven.compiler.source>-->
 <!--		<maven.compiler.target>17</maven.compiler.target>-->
@@ -34,7 +36,6 @@
 			<artifactId>spring-cloud-starter-bootstrap</artifactId>
 		</dependency>
 
-
 		<!-- Validation -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -46,7 +47,19 @@
 			<groupId>com.github.xiaoymin</groupId>
 			<artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
 		</dependency>
+		<!--Swagger3-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 
+		<!--ELK日志依赖-->
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>7.4</version>
+		</dependency>
 	</dependencies>
 
 </project>

@@ -8,15 +8,15 @@
         <result column="product_id" property="productId" />
         <result column="sku_id" property="skuId" />
         <result column="image_url" property="imageUrl" />
-        <result column="is_main" property="isMain" />
         <result column="sort_order" property="sortOrder" />
+        <result column="media_type" property="mediaType" />
         <result column="created_time" property="createdTime" />
         <result column="updated_time" property="updatedTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        image_id, product_id, sku_id, image_url, is_main, sort_order, created_time, updated_time
+        image_id, product_id, sku_id, image_url, sort_order,media_type, created_time, updated_time
     </sql>
 
 </mapper>

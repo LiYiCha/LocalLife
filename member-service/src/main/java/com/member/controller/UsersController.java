@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2025-01-13
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/member/users")
 public class UsersController {
 
     @Autowired
@@ -102,7 +102,7 @@ public class UsersController {
      * @param username
      * @return
      */
-    @PostMapping("/get")
+    @GetMapping("/get")
     public Result get(@RequestParam("username") String username) {
         UsersDTO users = us.getUserInfo(username);
         if (users == null) {

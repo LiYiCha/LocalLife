@@ -31,20 +31,20 @@ public class CouponOrder implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private int id;
+    @TableId(value = "coupon_order_id", type = IdType.AUTO)
+    private Integer couponOrderId;
 
     /**
      * 下单的用户id
      */
     @TableField("user_id")
-    private int userId;
+    private Integer userId;
 
     /**
      * 购买的代金券id
      */
     @TableField("coupon_id")
-    private int couponId;
+    private Integer couponId;
 
     /**
      * 订单状态，1：未支付；2：已支付；3：已核销；4：已取消

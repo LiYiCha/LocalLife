@@ -29,7 +29,7 @@ public class CodeGenerator {
                     builder.parent("com.product") // 设置父包名
                             .entity("pojo") // 设置 Entity 包名
                             .service("service") // 设置 Service 包名
-                            .serviceImpl("service.impl") // 设置 Service Impl 包名
+                            .serviceImpl("service.impl") // 设置 Service impl 包名
                             .mapper("mapper") // 设置 Mapper 包名
                             .xml("mapper") // 设置 Mapper XML 包名
                             .controller("controller") // 设置 Controller 包名

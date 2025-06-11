@@ -47,6 +47,11 @@ public class ShoppingCart implements Serializable {
     @TableField("product_id")
     private Integer productId;
     /**
+     * 商家ID
+     */
+    @TableField("merchant_id")
+    private Integer merchantId;
+    /**
      * 商品名称
      */
     @TableField("product_name")

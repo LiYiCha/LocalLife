@@ -6,7 +6,8 @@ import java.util.List;
 
 @Data
 public class OrderDTO {
-    private Integer userId;
+    private Integer userId;  // 用户ID
+    private Integer merchantId;  // 商家ID
     private Integer couponId; // 使用的优惠券ID
     private Integer addressId; // 收货地址ID
     private String remark; // 订单备注

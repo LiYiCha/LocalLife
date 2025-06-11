@@ -8,8 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @MapperScan("com.member.mapper")
-@ComponentScan(basePackages = {"com.core", "com.member"}) // 显式指定扫描路径
-@EnableFeignClients("com.feign.client")  //开启Feign
+@ComponentScan(basePackages = {"com.core", "com.member","com.dataresource"})
+@EnableFeignClients("com.feign.client")
 public class MemberApplication {
 
 	public static void main(String[] args) {

@@ -2,10 +2,8 @@ package com.order.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.core.utils.PageResult;
 import com.core.utils.RedisUtil;
 import com.feign.client.CouponClient;
 import com.feign.client.ProductClient;
@@ -13,6 +11,7 @@ import com.feign.dto.ProductStockDTO;
 import com.feign.pojo.ShoppingCart;
 import com.order.config.SendOrder;
 import com.order.dto.OrderDTO;
+import com.order.dto.OrderDetailDTO;
 import com.order.dto.OrderItemDTO;
 import com.order.enums.OrderStatus;
 import com.order.enums.PaymentMethod;
@@ -24,7 +23,7 @@ import com.order.pojo.Payments;
 import com.order.service.*;
 import com.core.utils.Result;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.order.vo.UserOrderVO;
+import com.order.utils.OrderUtils;
 import io.seata.spring.annotation.GlobalTransactional;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -32,13 +31,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -64,19 +58,13 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     private CouponClient couponClient;
     @Resource
     private OrdersMapper ordersManager;
-
     @Resource
     private SendOrder sendOrder;
-
     @Resource
     private RedisUtil redisUtil;
+    @Resource
+    private OrderUtils orderUtils;
 
-    private static final int LOCK_POOL_SIZE = 10;  // 分段锁锁槽位数量
-
-    // 使用一致性哈希来减少冲突概率
-    private String generateLockKey(String baseKey, Integer id) {
-        return baseKey + "_" + (Math.abs(id.hashCode() % LOCK_POOL_SIZE));
-    }
 
     /**
      * 创建订单
@@ -87,18 +75,25 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     @Override
     @GlobalTransactional(timeoutMills = 10000, name = "create-order-tx", rollbackFor = Exception.class)
     public Result createOrder(OrderDTO orderDTO) {
-        // 使用分段锁
-        String userId = String.valueOf(orderDTO.getUserId());
-        String lockKey = generateLockKey("addOrder", orderDTO.getUserId());
+        // 1. 幂等性校验：基于订单内容生成唯一标识
+        String orderKey = "CreateOrder_idempotent_" + orderUtils.generateOrderContentHash(orderDTO);
+        if (Boolean.TRUE.equals(redisUtil.hasKey(orderKey))) {
+            // 如果 Redis 中已存在该订单标识，说明请求已处理，直接返回缓存的结果
+            String cachedResult = (String) redisUtil.get(orderKey);
+            return JSON.parseObject(cachedResult, Result.class);
+        }
 
-        if (redisUtil.tryLock(lockKey, userId, 10)) {
+        // 2. 生成锁 Key：基于订单内容的唯一标识符
+        String lockKey = "CreateOrder_lock_" + orderUtils.generateOrderContentHash(orderDTO);
+
+        if (redisUtil.tryLock(lockKey, "locked", 10)) {
             try {
-                // 1. 参数校验
+                // 3. 参数校验
                 if (orderDTO.getItems() == null || orderDTO.getItems().isEmpty()) {
                     return Result.error("订单商品不能为空");
                 }
 
-                // 2. 库存校验与扣减（Feign调用product-service）
+                // 4. 库存校验与扣减（Feign 调用 product-service）
                 List<ProductStockDTO> stockList = orderDTO.getItems().stream()
                         .map(item -> new ProductStockDTO(item.getProductId(), item.getQuantity()))
                         .collect(Collectors.toList());
@@ -108,30 +103,37 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                     return Result.error("库存不足: " + stockResult.getMsg());
                 }
 
-                // 3. 计算金额
-                BigDecimal totalAmount = calculateTotalAmount(orderDTO.getItems());
+                // 5. 计算金额
+                BigDecimal totalAmount = orderUtils.calculateTotalAmount(orderDTO.getItems());
                 BigDecimal discountAmount = BigDecimal.ZERO;
 
-                // 4. 创建订单主表
+                // 6. 创建订单主表
                 Orders order = new Orders();
                 order.setUserId(orderDTO.getUserId());
-                order.setOrderNo(generateOrderNo()); // 实现订单号生成逻辑
+                order.setUserId(orderDTO.getMerchantId());
+                order.setOrderNo(orderUtils.generateOrderNo()); // 实现订单号生成逻辑
                 order.setTotalAmount(totalAmount); // 暂时不扣除优惠券金额
                 order.setStatus(OrderStatus.PENDING.getCode());
                 order.setCreatedTime(LocalDateTime.now());
                 baseMapper.insert(order);
 
-                // 异步处理优惠券使用、订单详情保存、消息发送
+                // 7. 异步处理优惠券使用、订单详情保存、消息发送
                 asyncProcessOrder(orderDTO, order.getOrderId(), totalAmount);
 
-                return Result.success("订单ID:" + order.getOrderId() + "创建成功");
+                // 8. 存储幂等性校验结果到 Redis
+                Result result = Result.success("订单ID:" + order.getOrderId() + "创建成功");
+                redisUtil.set(orderKey, JSON.toJSONString(result), 2, TimeUnit.MINUTES);// 设置缓存过期时间为 2 分钟
+
+                return result;
             } finally {
-                redisUtil.releaseLock(lockKey, userId);
+                // 确保释放锁
+                redisUtil.releaseLock(lockKey, "locked");
             }
         } else {
-            return Result.error("请勿重复操作");
+            return Result.error("请勿频繁重复操作");
         }
     }
+
 
     // 异步处理方法
     @Async
@@ -166,13 +168,11 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             orderDetailsService.saveBatch(details);
 
             // 3. 发送消息到延迟队列（异步）
-            sendOrder.sendOrderToDelayQueue(orderId);
+            sendOrder.sendOrderToDelayQueue(orderDTO.getUserId(),orderId);
         } catch (Exception e) {
             log.error("异步处理订单失败，订单ID: {}, 用户ID: {}, 错误信息: {}", orderId, orderDTO.getUserId(), e.getMessage(), e);
         }
     }
-
-
     // 辅助方法：计算优惠劵优惠金额
     private BigDecimal calculateDiscount(OrderDTO orderDTO) {
         // 3.1 验证优惠劵
@@ -193,25 +193,6 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
             return BigDecimal.ZERO;
         }
     }
-
-    // 辅助方法：计算总金额
-    private BigDecimal calculateTotalAmount(List<OrderItemDTO> items) {
-        return items.stream()
-                .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())).setScale(2, RoundingMode.HALF_UP))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-
-    // 辅助方法：生成订单号
-    private String generateOrderNo() {
-        return UUID.randomUUID().toString();
-    }
-
-    // 辅助方法：生成支付流水号
-    private String generatePaymentNo() {
-        return "P" + System.currentTimeMillis() + ThreadLocalRandom.current().nextInt(1000, 9999);
-    }
-
     /**
      * 从购物车创建订单
      * @param userId
@@ -223,7 +204,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     @GlobalTransactional(timeoutMills = 10000, name = "create-order-car-tx", rollbackFor = Exception.class)
     public Result createOrderFromCart(Integer userId, List<Integer> cartItemIds, Integer couponId) {
         // 使用分段锁
-        String lockKey = generateLockKey("addOrderFromCart", userId);
+        String lockKey = orderUtils.generateLockKey("addOrderFromCart", userId);
 
         if (redisUtil.tryLock(lockKey, userId.toString(), 10)) {
             try {
@@ -257,10 +238,22 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 if (selectedCartItems.isEmpty()) {
                     return Result.error("购物车中没有选中的商品");
                 }
+                // 商家一致性校验
+                Set<Integer> merchantIdSet = selectedCartItems.stream()
+                        .map(ShoppingCart::getMerchantId)
+                        .collect(Collectors.toSet());
+
+                if (merchantIdSet.isEmpty()) {
+                    return Result.error("购物车商品无关联商家");
+                }
+                if (merchantIdSet.size() > 1) {
+                    return Result.error("暂不支持跨商家合并下单");
+                }
 
                 // 3. 构建 OrderDTO 对象
                 OrderDTO orderDTO = new OrderDTO();
                 orderDTO.setUserId(userId);
+                orderDTO.setMerchantId(merchantIdSet.iterator().next());
                 orderDTO.setCouponId(couponId);
                 orderDTO.setItems(selectedCartItems.stream()
                         .map(cartItem -> {
@@ -302,12 +295,12 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     @GlobalTransactional(timeoutMills = 30000, name = "cancel-order-tx", rollbackFor = Exception.class)
     public Result cancelOrder(Integer userId, Integer orderId) {
         // 使用分段锁
-        String lockKey = generateLockKey("cancelOrder", orderId);
+        String lockKey = orderUtils.generateLockKey("cancelOrder", orderId);
 
         if (redisUtil.tryLock(lockKey, orderId.toString(), 10)) {
             try {
                 // 1. 获取订单
-                Orders order = ordersManager.getOrdersByUserIdAndOrderId(userId, orderId);
+                Orders order = ordersManager.getOrder(userId, orderId);
                 if (order == null) {
                     return Result.error("订单不存在");
                 }
@@ -329,11 +322,9 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 if (stockResult.getCode() != Result.success().getCode()) {
                     throw new RuntimeException("库存恢复失败: " + stockResult.getMsg());
                 }
-
                 // 4. 更新订单状态
                 order.setStatus(OrderStatus.CANCELED.getCode());
                 this.updateById(order);
-
                 return Result.success("订单已取消");
             } finally {
                 redisUtil.releaseLock(lockKey, orderId.toString());
@@ -354,7 +345,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     @GlobalTransactional(timeoutMills = 300000, name = "pay-order-tx", rollbackFor = Exception.class)
     public Result payOrder(Integer orderId, PaymentMethod paymentMethod) {
         // 获取分段锁键（基于订单ID哈希取模）
-        String lockKey = generateLockKey("payOrder",orderId);
+        String lockKey = orderUtils.generateLockKey("payOrder",orderId);
 
         if (redisUtil.tryLock(lockKey, orderId.toString(), 300)) {
             try {
@@ -380,6 +371,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                         break;
                     case WECHAT:
                         // paymentSuccess = wechatPayService.pay(order);
+                        paymentSuccess = true;
                         break;
                     default:
                         return Result.error("不支持的支付方式");
@@ -393,7 +385,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                     // 创建支付记录
                     Payments payment = new Payments();
                     payment.setOrderId(orderId);
-                    payment.setPaymentNo(generatePaymentNo()); // 假设有一个方法生成支付流水号
+                    payment.setPaymentNo(orderUtils.generatePaymentNo()); // 假设有一个方法生成支付流水号
                     payment.setAmount(order.getTotalAmount());
                     payment.setStatus(PaymentStatus.PAID.getCode());
                     paymentsService.save(payment);
@@ -412,7 +404,13 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                             .collect(Collectors.toList());
 
                     // 批量更新商品销量
-                    productClient.addSalesBatch(salesList);
+                    try {
+                        productClient.addSalesBatch(salesList);
+                    } catch (Exception e) {
+                        log.error("更新商品销量失败, 订单ID: {}, 错误信息: {}", orderId, e.getMessage(), e);
+                        // 将失败任务加入消息队列进行异步重试
+                    }
+
 
                     return Result.success(payment);
                 }
@@ -429,18 +427,18 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     /**
      * 删除订单
      *
-     * @param id 订单ID
+     * @param orderid 订单ID
      * @return Result
      */
     @Override
-    public boolean removeById(Integer userId, Integer id) {
+    public boolean removeById(Integer userId, Integer orderid) {
         // 使用分段锁
-        String lockKey = generateLockKey("deleteOrder", id);
+        String lockKey = orderUtils.generateLockKey("deleteOrder", orderid);
 
-        if (redisUtil.tryLock(lockKey, id.toString(), 10)) {
+        if (redisUtil.tryLock(lockKey, orderid.toString(), 10)) {
             try {
                 // 1. 根据用户id和订单id获取订单
-                Orders order = ordersManager.getOrdersByUserIdAndOrderId(userId, id);
+                Orders order = ordersManager.getOrder(userId, orderid);
                 if (order == null) {
                     return false;
                 }
@@ -451,16 +449,16 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
                 }
 
                 // 3. 删除订单
-                this.removeById(id);
+                this.removeById(orderid);
 
                 // 4. 删除订单详情
                 orderDetailsService.lambdaUpdate()
-                        .eq(OrderDetails::getOrderId, id)
+                        .eq(OrderDetails::getOrderId, orderid)
                         .remove();
 
                 return true;
             } finally {
-                redisUtil.releaseLock(lockKey, id.toString());
+                redisUtil.releaseLock(lockKey, orderid.toString());
             }
         } else {
             return false;
@@ -475,45 +473,70 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
      */
     // 使用多表联查获取订单及其详情
     @Override
-    public Result getUserOrders(Integer userId, Integer pageNum, Integer pageSize) {
-        //使用缓存
-        String cacheKey = "user_orders_" + userId + "_" + pageNum + "_" + pageSize;
-        String jsonData = (String) redisUtil.get(cacheKey);
+    public Result getUserOrders(Integer userId, String status, Integer pageNum, Integer pageSize) {
 
-        if (jsonData != null) {
-            PageResult<UserOrderVO> cachedResult = JSON.parseObject(jsonData, new TypeReference<PageResult<UserOrderVO>>() {});
-            return Result.success(cachedResult);
+        // 分页查询
+        Page<OrderDetailDTO> page = new Page<>(pageNum, pageSize);
+
+        // 如果 status 为 null 或空字符串，则不传递 status 参数
+        String finalStatus = null;
+        if (status != null && !status.trim().isEmpty()) {
+            // 如果 status 是字符串 "null"，则将其设置为 null
+            finalStatus = "null".equalsIgnoreCase(status.trim()) ? null : status.trim();
         }
-
-        Page<Orders> page = new Page<>(pageNum, pageSize);
-        LambdaQueryWrapper<Orders> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Orders::getUserId, userId)
-                .orderByDesc(Orders::getCreatedTime);
-        IPage<Orders> ordersPage = ordersManager.selectPage(page, queryWrapper);
-
-        List<UserOrderVO> userOrderVOList = ordersPage.getRecords().stream()
-                .map(order -> {
-                    UserOrderVO userOrderVO = new UserOrderVO();
-                    userOrderVO.setOrderId(order.getOrderId());
-                    userOrderVO.setOrderNo(order.getOrderNo());
-                    userOrderVO.setTotalAmount(order.getTotalAmount());
-                    userOrderVO.setStatus(order.getStatus());
-                    userOrderVO.setCreatedTime(order.getCreatedTime());
-
-                    List<OrderDetails> details = orderDetailsService.lambdaQuery()
-                            .eq(OrderDetails::getOrderId, order.getOrderId())
-                            .list();
-                    userOrderVO.setOrderDetails(details);
-
-                    return userOrderVO;
-                })
-                .collect(Collectors.toList());
-
-        PageResult<UserOrderVO> result = new PageResult<>(ordersPage.getTotal(), userOrderVOList);
-        redisUtil.set(cacheKey, JSON.toJSONString(result), 30, TimeUnit.MINUTES);
-
-        return Result.success(result);
+        // 查询
+        IPage<OrderDetailDTO> orderDetailPage = ordersManager.getUserOrders(page, userId, finalStatus);
+        return Result.success(orderDetailPage);
     }
 
 
+
+
+    /**
+     * 获取订单详情
+     *
+     * @param userId 用户ID
+     * @param orderId 订单ID
+     * @return Result
+     */
+    @Override
+    public Result getOrderDetail(Integer userId, Integer orderId) {
+        OrderDetailDTO orderDetail = ordersManager.getOrderDetail(userId, orderId);
+        if (orderDetail != null) {
+            return Result.success(orderDetail);
+        }
+        return Result.error("订单不存在");
+    }
+
+
+    /**
+     * 商家获取订单
+     * @param merchantId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Result getOrdersByMerchant(Integer merchantId, String status, Integer pageNum, Integer pageSize) {
+        Page<OrderDetailDTO> page = new Page<>(pageNum, pageSize);
+        IPage<OrderDetailDTO> orderDetailPage = ordersManager.getOrdersByMerchant(merchantId, status,page);
+        return Result.success(orderDetailPage);
+    }
+
+    /**
+     * 商家修改订单状态
+     * @param orderId
+     * @param merchantId
+     * @return
+     */
+    @Override
+    public Result updateStatusByMerchant(Integer orderId, Integer merchantId) {
+        Orders order = ordersManager.selectById(orderId);
+        if (order == null) {
+            return Result.error("订单不存在");
+        }
+        order.setStatus(OrderStatus.SHIPPED.getCode());
+        ordersManager.updateById(order);
+        return Result.success();
+    }
 }

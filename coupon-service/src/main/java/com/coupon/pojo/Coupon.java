@@ -32,32 +32,37 @@ public class Coupon implements Serializable {
     /**
      * 主键
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private int id;
+    @TableId(value = "coupon_id", type = IdType.AUTO)
+    private Integer couponId;
 
     /**
      * 商铺id
      */
     @TableField("store_id")
-    private int storeId;
+    private Integer storeId;
 
     /**
      * 代金券标题
      */
     @TableField("title")
     private String title;
+    /**
+     * 代金券标题
+     */
+    @TableField("description")
+    private String description;
 
     /**
      * 支付金额，单位是分
      */
     @TableField("pay_value")
-    private int payValue;
+    private Integer payValue;
 
     /**
      * 抵扣金额，单位是分
      */
     @TableField("actual_value")
-    private int actualValue;
+    private Integer actualValue;
 
     /**
      * 优惠券类型，1-满减券；2-折扣券；3-无门槛券(立减卷)
@@ -73,12 +78,12 @@ public class Coupon implements Serializable {
      * 指定分类id
      */
     @TableField("category_id")
-    private int categoryId;
+    private Integer categoryId;
     /**
      * 指定商品id
      */
     @TableField("product_id")
-    private int productId;
+    private Integer productId;
     /**
      * 总库存
      */

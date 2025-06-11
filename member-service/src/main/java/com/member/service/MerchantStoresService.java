@@ -1,5 +1,7 @@
 package com.member.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.member.dto.MerchantDTO;
 import com.member.pojo.MerchantStores;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,5 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2025-01-13
  */
 public interface MerchantStoresService extends IService<MerchantStores> {
+
 
 }

@@ -11,3 +11,7 @@ spring:
         file-extension: yaml # 文件后缀名
         group: DEFAULT_GROUP # 如果有指定组名
         namespace: 9ae782ba-77b6-43cd-b1be-0dcf25721ff4 # 如果有命名空间，请填写对应的ID
+        shared-configs: # 共享配置
+          - dataId: shared-seata.yaml # 共享 mybatis 配置
+          - dataId: shared-mybatis.yaml
+          - dataId: shared-redis-mq.yaml

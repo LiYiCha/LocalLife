@@ -8,6 +8,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -39,24 +42,28 @@ public class UserPointsLog implements Serializable {
      * 用户ID
      */
     @TableField("user_id")
+    @NotNull(message = "用户ID不能为空")
     private Integer userId;
 
     /**
      * 积分变动数量
      */
     @TableField("points")
+    @NotNull(message = "积分数量不能为空")
     private Integer points;
 
     /**
      * 积分类型：1-签到，2-消费，3-评价
      */
     @TableField("type")
+    @NotNull(message = "积分类型不能为空")
     private Byte type;
 
     /**
      * 积分来源描述
      */
     @TableField("source")
+    @NotBlank(message = "积分来源描述不能为空")
     private String source;
 
     /**

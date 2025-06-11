@@ -7,3 +7,9 @@ spring:
       port: 6379
       password:
       database: 0
+  servlet:
+    multipart:
+      enabled: true           # 启用文件上传支持
+      max-file-size: 10MB    # 单个文件大小限制
+      max-request-size: 100MB # 总请求大小限制
+

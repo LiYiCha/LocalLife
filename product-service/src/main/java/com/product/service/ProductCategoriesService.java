@@ -1,5 +1,6 @@
 package com.product.service;
 
+import com.core.utils.Result;
 import com.product.pojo.ProductCategories;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ProductCategoriesService extends IService<ProductCategories> {
 
+    Result getByMerchantId(Integer merchantId, Integer pageNum, Integer pageSize);
 }

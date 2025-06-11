@@ -2,7 +2,9 @@ package com.order.enums;
 
 public enum OrderStatus {
     PENDING("PENDING", "等待支付"),
-    PAID("PAID", "已支付"),
+    PAID("PAID", "已支付/待发货"),
+    SHIPPED("SHIPPED","待收货"),
+    DELIVERED ("DELIVERED","待评价"),
     CANCELED("CANCELED", "已取消"),
     RETURN("RETURN", "已退货/退款"),
     COMPLETED("COMPLETED", "已完成");

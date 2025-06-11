@@ -22,5 +22,9 @@
     <sql id="Base_Column_List">
         category_id, merchant_id, name, description, cover_image, level, parent_id, is_show, sort_order, status, created_time, updated_time
     </sql>
+    <select id="getByMerchantId" resultType="com.product.pojo.ProductCategories">
+        select <include refid="Base_Column_List"/> from product_categories
+        where merchant_id = #{merchantId}
+    </select>
 
 </mapper>

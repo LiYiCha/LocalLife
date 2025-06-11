@@ -1,13 +1,14 @@
 package com.order.config;
 
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
+@Configuration("orderRabbitMQConfig")
 public class RabbitMQConfig {
 
     // 定义延迟交换机
@@ -34,5 +35,11 @@ public class RabbitMQConfig {
                 .to(orderDelayExchange())
                 .with("order.delay.routing.key")
                 .noargs();
+    }
+
+    // 消息转换器
+    @Bean
+    public Jackson2JsonMessageConverter jsonMessageConverter() {
+        return new Jackson2JsonMessageConverter();
     }
 }

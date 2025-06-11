@@ -19,7 +19,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/couponOrder")
+@RequestMapping("/api/coupon/order")
 public class CouponOrderController {
 
     @Autowired
@@ -40,8 +40,8 @@ public class CouponOrderController {
     }
 
     // 获取单个订单
-    @GetMapping("/get/{id}")
-    public Result getOrderById(@PathVariable("id") int id) {
+    @GetMapping("/getById")
+    public Result getOrderById(@RequestParam("id") int id) {
         CouponOrder order = couponOrderService.getById(id);
         return order != null ? Result.success(order) : Result.error("订单不存在");
     }
@@ -54,15 +54,15 @@ public class CouponOrderController {
     }
 
     // 删除订单
-    @PostMapping("/del/{id}")
-    public Result deleteOrder(@PathVariable("id") int id) {
+    @PostMapping("/delById")
+    public Result deleteOrder(@RequestParam("id") int id) {
         boolean success = couponOrderService.removeById(id);
         return success ? Result.success() : Result.error("删除订单失败");
     }
 
     // 获取用户的订单
-    @GetMapping("/userAll/{userId}")
-    public Result getOrdersByUser(@PathVariable("userId") int userId) {
+    @GetMapping("/userAll")
+    public Result getOrdersByUser(@RequestParam("userId") int userId) {
         List<CouponOrder> orders = couponOrderService.lambdaQuery()
                 .eq(CouponOrder::getUserId, userId)
                 .list();
@@ -70,15 +70,15 @@ public class CouponOrderController {
     }
 
     // 获取某个优惠券的订单
-    @GetMapping("/coupon/{couponId}")
-    public Result getOrdersByCoupon(@PathVariable("couponId") int couponId) {
+    @GetMapping("/coupon")
+    public Result getOrdersByCoupon(@RequestParam("couponId") int couponId) {
         List<CouponOrder> orders = couponOrderService.lambdaQuery()
                 .eq(CouponOrder::getCouponId, couponId)
                 .list();
         return Result.success(orders);
     }
     //使用优惠劵
-    @PostMapping("/use/{userId}/{couponId}")
+    @PostMapping("/use")
     Result useCoupon(@RequestParam("userId") Integer userId, @RequestParam("couponId") Integer couponId){
         int success = couponOrderService.userCoupon(couponId, userId);
         return success > 0 ? Result.success() : Result.error("使用优惠劵失败");

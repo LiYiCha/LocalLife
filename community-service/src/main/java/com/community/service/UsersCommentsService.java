@@ -2,6 +2,7 @@ package com.community.service;
 
 import com.community.pojo.UsersComments;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.core.utils.Result;
 
 /**
  * <p>
@@ -13,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UsersCommentsService extends IService<UsersComments> {
 
+    Result addComment(UsersComments comment);
+    Result removeById(Integer id);
 }

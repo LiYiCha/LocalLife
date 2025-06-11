@@ -4,7 +4,11 @@ import com.member.pojo.UserPointsLog;
 import com.member.mapper.UserPointsLogMapper;
 import com.member.service.UserPointsLogService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import jakarta.annotation.Resource;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
+import java.sql.PreparedStatement;
 
 /**
  * <p>
@@ -16,5 +20,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserPointsLogServiceImpl extends ServiceImpl<UserPointsLogMapper, UserPointsLog> implements UserPointsLogService {
+    @Resource
+    private UserPointsLogMapper userPointsLogMapper;
 
+    /**
+     * 定时任务：每周一凌晨清理过期的积分记录,只保留本周积分记录
+     */
+    @Scheduled(cron = "0 0 0 * * MON") // 每周一凌晨执行
+    public void cleanOldLogs() {
+        userPointsLogMapper.cleanOldLogs();
+    }
 }

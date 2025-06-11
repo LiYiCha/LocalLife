@@ -2,9 +2,10 @@ package com.feign.client;
 
 import com.core.utils.Result;
 import com.feign.dto.ProductStockDTO;
+import com.feign.pojo.ProductEs;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -31,11 +32,18 @@ public interface ProductClient {
     Result addSalesBatch(@RequestBody List<Map<String, Integer>> stockList);
 
     //查询用户购物车
-    @GetMapping("/shoppingCart/user/{userId}")
-    Result getCartByUser(@PathVariable("userId") Integer userId);
+    @GetMapping("/shoppingCart/user")
+    Result getCartByUser(@RequestParam("userId") Integer userId);
 
     //批量删除购物车
     @PostMapping("/shoppingCart/batchDelete")
     Result deleteCartItems(@RequestBody List<Integer> ids);
 
+    //ES增量同步数据
+    @GetMapping("/products/es")
+    ProductEs getProductForEs(@RequestParam("productId") Integer productId);
+
+    //ES全量同步数据
+    @GetMapping("/products/es/all")
+    List<ProductEs> syncAllProductsToES(@RequestParam("page") Integer page , @RequestParam("size") Integer size);
 }
