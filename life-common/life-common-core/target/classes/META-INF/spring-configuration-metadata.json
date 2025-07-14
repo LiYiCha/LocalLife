@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "reggie",
+      "type": "com.core.config.ReggieConfig",
+      "sourceType": "com.core.config.ReggieConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "reggie.path",
+      "type": "java.lang.String",
+      "sourceType": "com.core.config.ReggieConfig"
+    }
+  ],
+  "hints": []
+}

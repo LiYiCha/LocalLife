@@ -21,6 +21,7 @@
         <module>life-auth</module>
         <module>life-modules</module>
         <module>life-modules/feign-api</module>
+        <module>life-modules/dubbo-api</module>
         <module>life-common/life-common-core</module>
         <module>life-common/life-common-dataresource</module>
         <module>member-service</module>
@@ -30,6 +31,7 @@
         <module>product-service</module>
         <module>search-service</module>
         <module>file-service</module>
+        <module>admin-service</module>
     </modules>
 
     <!-- 所有模块都会继承的依赖 -->
@@ -158,6 +160,15 @@
                 <version>${project.version}</version>
             </dependency>
 
+
+            <!--Dubbo Rpc框架-->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-bom</artifactId>
+                <version>3.3.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

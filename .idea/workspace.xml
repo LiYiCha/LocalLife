@@ -4,14 +4,66 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ff10ad4-5f21-4887-9aaa-ddcee1bb57cb" name="更改" comment="更新接口规范，优化数据库字段" />
+    <list default="true" id="d9a931c3-9d81-4bf8-b1ef-11f757835ccb" name="更改" comment="初始化仓库介绍">
+      <change afterPath="$PROJECT_DIR$/admin-service/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-service/src/main/java/com/admin/AdminsApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-service/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-service/src/main/resources/bootstrap.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin-service/src/main/resources/smart-doc-config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sql/life_admin_db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CoolRequestCookiePersistent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CoolRequestEnvironmentPersistentComponent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/CoolRequestHistoryPersistent.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/LocalLife.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/MarsCodeWorkspaceAppSettings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/com/community/service/impl/UsersPostsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/com/community/service/impl/UsersPostsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/target/classes/com/community/controller/UsersCommentsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/target/classes/com/community/controller/UsersCommentsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/target/classes/com/community/controller/UsersPostsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/target/classes/com/community/controller/UsersPostsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/target/classes/com/community/service/impl/UsersPostsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/target/classes/com/community/service/impl/UsersPostsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coupon-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/coupon-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coupon-service/target/classes/com/coupon/controller/CouponController.class" beforeDir="false" afterPath="$PROJECT_DIR$/coupon-service/target/classes/com/coupon/controller/CouponController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coupon-service/target/classes/com/coupon/controller/CouponOrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/coupon-service/target/classes/com/coupon/controller/CouponOrderController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coupon-service/target/classes/com/coupon/service/impl/CouponServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/coupon-service/target/classes/com/coupon/service/impl/CouponServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/file-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/life-auth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/life-auth/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/src/main/java/com/core/utils/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/src/main/java/com/core/utils/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/src/main/java/com/core/utils/ResultEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/src/main/java/com/core/utils/ResultEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/exception/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/exception/GlobalExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/utils/MD5Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/utils/MD5Utils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/utils/PageResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/utils/PageResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/utils/TokenUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/utils/TokenUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/life-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/life-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/life-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/life-gateway/target/classes/com/gateway/filter/GatewayFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/life-gateway/target/classes/com/gateway/filter/GatewayFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/member-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/member-service/src/main/java/com/member/utils/CodeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/java/com/member/utils/CodeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/member-service/target/classes/com/member/service/impl/UserCheckinsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/target/classes/com/member/service/impl/UserCheckinsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/member-service/target/classes/com/member/utils/CodeGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/target/classes/com/member/utils/CodeGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/order/config/SendOrder.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/order/config/SendOrder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/order/service/impl/OrdersServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/order/service/impl/OrdersServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-system/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/payment-system/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-system/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-system/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/product/service/impl/ProductSkusServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/target/classes/com/product/service/impl/ProductSkusServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/search-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/search-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/life_member_db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/life_member_db.sql" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="CompilerWorkspaceConfiguration">
-    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -22,19 +74,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="PUSH_AUTO_UPDATE" value="true" />
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="ef20019140bdcbac670b26e32ca150b2cbbe227e" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/member-service/src/main/resources/mapper/UserPointsLogMapper.xml" root0="FORCE_HIGHLIGHTING" />
-  </component>
-  <component name="JRebelWorkspace">
-    <option name="jrebelEnabledAutocompile" value="true" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -48,13 +88,7 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectId" id="2sCO3OpoftDKsAwfsxcRWF6VbkH" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectId" id="2yTluVRC6Otxf1pVNDRa5VMCurK" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -67,61 +101,81 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "dev",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "D:/giee/farmer",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "openjdk-23",
+    "last_opened_file_path": "D:/exploitation/work1/LocalLife",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "项目",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "ai.codegeex.plugin.settings.ApplicationConfigurable",
-    "spring.configuration.checksum": "766834927ddd0c9b154d0ae6e5036e93",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "spring.configuration.checksum": "5e5e777bcf221da438382fa5c5463e62",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="ReactorSettings">
-    <option name="notificationShown" value="true" />
-  </component>
-  <component name="RebelAgentSelection">
-    <selection>jr</selection>
-  </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.search.service.impl" />
-      <recent name="com.search.service" />
-      <recent name="com.search.pojo" />
-      <recent name="com.member.dto" />
-      <recent name="com.product.dto" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\exploitation\work1\LocalLife\payment-system\src\main\java\com\yc\payment\utils" />
-      <recent name="D:\exploitation\work1\LocalLife\file-service\src\main\resources" />
-      <recent name="D:\exploitation\work1\LocalLife\life-modules\feign-api\src\main\java\com\feign\pojo" />
-      <recent name="D:\exploitation\work1\LocalLife\life-common\life-common-dataresource\src\main\java\com\dataresource\pojo" />
-      <recent name="D:\exploitation\work1\LocalLife\product-service\src\main\resources" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\exploitation\work1\LocalLife\docker" />
-      <recent name="D:\exploitation\work1\LocalLife\docker\logstash\pipeline" />
-      <recent name="D:\exploitation\work1\LocalLife\docker\templates" />
-      <recent name="D:\exploitation\work1\LocalLife\life-common\life-common-core\src\main\resources\META-INF" />
       <recent name="D:\exploitation\work1\LocalLife" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.product.config" />
-      <recent name="com.order.dto" />
-      <recent name="com.feign.pojo" />
-      <recent name="com.feign.dto" />
+      <recent name="D:\exploitation\work1\LocalLife\admin-service\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.OrderServiceApplication">
+  <component name="RunManager" selected="Spring Boot.AdminsApplication">
+    <configuration name="CodeGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.member.utils.CodeGenerator" />
+      <module name="member-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.member.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="LocalLife" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="LocalLife" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="admin-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.admin.AdminsApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.admin.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminsSpringboot" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="admin-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.admin.AdminsSpringboot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.admin.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CommunityServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="community-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.community.CommunityServiceApplication" />
@@ -143,41 +197,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LifeAuthApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="LifeAuthApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="life-auth" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.auth.LifeAuthApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.auth.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LifeGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="LifeGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="life-gateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.gateway.LifeGatewayApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.gateway.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MemberApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="MemberApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="member-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.member.MemberApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.member.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -189,29 +225,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PaymentSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="PaymentSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="payment-system" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.yc.payment.PaymentSystemApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.yc.payment.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProducServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="ProducServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="product-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.product.ProducServiceApplication" />
-      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.product.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -223,247 +246,52 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="SwaggerCodegen">
-      <option name="activeConfigurationType" value="FILE" />
-      <option name="configurationPath" value="" />
-      <option name="customJreEnabled" value="false" />
-      <option name="customTemplatesPath" value="" />
-      <option name="enableDebugLogging" value="false" />
-      <option name="generateToPath" value="" />
-      <option name="generationParameters">
-        <list />
-      </option>
-      <option name="generatorPath" value="" />
-      <option name="jdkPath" value="默认" />
-      <option name="language" value="" />
-      <option name="specificationPath" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.ProducServiceApplication" />
-        <item itemvalue="Spring Boot.PaymentSystemApplication" />
-        <item itemvalue="Spring Boot.MemberApplication" />
-        <item itemvalue="Spring Boot.LifeGatewayApplication" />
-        <item itemvalue="Spring Boot.LifeAuthApplication" />
+        <item itemvalue="Spring Boot.AdminsApplication" />
+        <item itemvalue="Spring Boot.AdminsSpringboot" />
+        <item itemvalue="应用程序.CodeGenerator" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
-      <changelist id="1ff10ad4-5f21-4887-9aaa-ddcee1bb57cb" name="更改" comment="" />
-      <created>1737955893935</created>
+      <changelist id="d9a931c3-9d81-4bf8-b1ef-11f757835ccb" name="更改" comment="" />
+      <created>1749866682527</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1737955893935</updated>
-      <workItem from="1737955895714" duration="2061000" />
-      <workItem from="1738138335227" duration="6636000" />
-      <workItem from="1738288120263" duration="1213000" />
-      <workItem from="1738381601076" duration="10393000" />
-      <workItem from="1738463316856" duration="4616000" />
-      <workItem from="1738633013404" duration="12671000" />
-      <workItem from="1738720302104" duration="12392000" />
-      <workItem from="1738806629017" duration="21787000" />
-      <workItem from="1738832734682" duration="852000" />
-      <workItem from="1738891184555" duration="12494000" />
-      <workItem from="1739155183759" duration="1336000" />
-      <workItem from="1739156552406" duration="891000" />
-      <workItem from="1739157457412" duration="13876000" />
-      <workItem from="1739191758333" duration="9000" />
-      <workItem from="1739239981535" duration="13773000" />
-      <workItem from="1739326586472" duration="20760000" />
-      <workItem from="1739348454974" duration="7741000" />
-      <workItem from="1739415762936" duration="12845000" />
-      <workItem from="1739760159046" duration="5557000" />
-      <workItem from="1739843493454" duration="5043000" />
-      <workItem from="1739865668435" duration="1593000" />
-      <workItem from="1739867967778" duration="8223000" />
-      <workItem from="1739930500917" duration="260000" />
-      <workItem from="1739931707506" duration="24000" />
-      <workItem from="1739932197331" duration="1271000" />
-      <workItem from="1739935125198" duration="17000" />
-      <workItem from="1740616027587" duration="115000" />
-      <workItem from="1741486337040" duration="345000" />
-      <workItem from="1741486696201" duration="6625000" />
-      <workItem from="1741507343566" duration="286000" />
-      <workItem from="1741507631740" duration="431000" />
-      <workItem from="1741508103994" duration="6668000" />
-      <workItem from="1741566201377" duration="457000" />
-      <workItem from="1741590778667" duration="11530000" />
-      <workItem from="1741655649627" duration="2285000" />
-      <workItem from="1741659602511" duration="664000" />
-      <workItem from="1741661325422" duration="678000" />
-      <workItem from="1741683918202" duration="7008000" />
-      <workItem from="1741742071394" duration="3722000" />
-      <workItem from="1741771749022" duration="6906000" />
-      <workItem from="1741825478744" duration="14460000" />
-      <workItem from="1741843508356" duration="848000" />
-      <workItem from="1741844374903" duration="3591000" />
-      <workItem from="1741852633256" duration="7632000" />
-      <workItem from="1741915432199" duration="2241000" />
-      <workItem from="1741938727515" duration="10060000" />
-      <workItem from="1742011217337" duration="662000" />
-      <workItem from="1742046471099" duration="4685000" />
-      <workItem from="1742089143207" duration="17023000" />
-      <workItem from="1742130302472" duration="885000" />
-      <workItem from="1742131236636" duration="5254000" />
-      <workItem from="1742179876493" duration="3897000" />
-      <workItem from="1742193119638" duration="7979000" />
-      <workItem from="1742215727709" duration="8687000" />
-      <workItem from="1742282308859" duration="9437000" />
-      <workItem from="1742298201275" duration="12194000" />
-      <workItem from="1742348642589" duration="13812000" />
-      <workItem from="1742430765338" duration="8038000" />
-      <workItem from="1742439131592" duration="2539000" />
-      <workItem from="1742442712440" duration="439000" />
-      <workItem from="1742542724879" duration="2705000" />
-      <workItem from="1742692111809" duration="178000" />
-      <workItem from="1742692301225" duration="14262000" />
-      <workItem from="1742718542679" duration="7344000" />
-      <workItem from="1742796727058" duration="11383000" />
-      <workItem from="1742870478863" duration="651000" />
-      <workItem from="1742889057881" duration="13119000" />
-      <workItem from="1742948967624" duration="27065000" />
-      <workItem from="1743034682113" duration="10560000" />
-      <workItem from="1743554292072" duration="6504000" />
-      <workItem from="1743640010244" duration="8861000" />
-      <workItem from="1743652879542" duration="184000" />
-      <workItem from="1743667889066" duration="889000" />
-      <workItem from="1743752723007" duration="7504000" />
-      <workItem from="1743824571748" duration="35000" />
-      <workItem from="1743925058476" duration="12246000" />
-      <workItem from="1744013884110" duration="4128000" />
-      <workItem from="1744018352881" duration="2682000" />
-      <workItem from="1744079090369" duration="1829000" />
-      <workItem from="1744084471398" duration="15686000" />
-      <workItem from="1744158141074" duration="636000" />
-      <workItem from="1744188514092" duration="1686000" />
-      <workItem from="1744190557419" duration="4299000" />
-      <workItem from="1744244672100" duration="9090000" />
-      <workItem from="1744254483757" duration="13426000" />
-      <workItem from="1744355502069" duration="1613000" />
-      <workItem from="1744357922138" duration="638000" />
-      <workItem from="1744363489846" duration="612000" />
-      <workItem from="1744438774058" duration="810000" />
-      <workItem from="1744512405478" duration="638000" />
-      <workItem from="1744597605007" duration="623000" />
-      <workItem from="1744612212634" duration="9031000" />
-      <workItem from="1744683738111" duration="180000" />
-      <workItem from="1744701677560" duration="8890000" />
-      <workItem from="1744762843443" duration="15000" />
-      <workItem from="1744812481519" duration="2000" />
-      <workItem from="1744851480877" duration="7400000" />
-      <workItem from="1744891443545" duration="628000" />
-      <workItem from="1744952062825" duration="2440000" />
-      <workItem from="1745031782121" duration="6869000" />
-      <workItem from="1745137273344" duration="3141000" />
-      <workItem from="1745146464292" duration="1189000" />
-      <workItem from="1745287764514" duration="67000" />
-      <workItem from="1745314113247" duration="2781000" />
-      <workItem from="1745367513154" duration="130000" />
-      <workItem from="1745391621263" duration="1312000" />
-      <workItem from="1745461332632" duration="1518000" />
-      <workItem from="1745635343304" duration="1235000" />
-      <workItem from="1745717412825" duration="560000" />
-      <workItem from="1745728495477" duration="608000" />
-      <workItem from="1745758853898" duration="659000" />
-      <workItem from="1745801465570" duration="16000" />
-      <workItem from="1745822450009" duration="5798000" />
-      <workItem from="1745892784626" duration="594000" />
-      <workItem from="1745918579578" duration="5963000" />
-      <workItem from="1745972343419" duration="8548000" />
-      <workItem from="1746432635491" duration="6839000" />
-      <workItem from="1746498454580" duration="182000" />
-      <workItem from="1746508168122" duration="8497000" />
-      <workItem from="1746577113742" duration="84000" />
-      <workItem from="1746586924028" duration="33000" />
-      <workItem from="1746601455414" duration="11406000" />
-      <workItem from="1746663858917" duration="7470000" />
-      <workItem from="1746858696159" duration="319000" />
-      <workItem from="1747032878756" duration="12897000" />
-      <workItem from="1747100371256" duration="24000" />
-      <workItem from="1747108907852" duration="10521000" />
-      <workItem from="1747181579585" duration="15000" />
-      <workItem from="1747188113733" duration="37000" />
-      <workItem from="1747194609763" duration="10607000" />
-      <workItem from="1747711326399" duration="56000" />
-      <workItem from="1747788513603" duration="16460000" />
-      <workItem from="1747882176592" duration="16622000" />
-      <workItem from="1748066823693" duration="10759000" />
-      <workItem from="1748094368285" duration="195000" />
-      <workItem from="1748425937555" duration="2763000" />
-      <workItem from="1748428739795" duration="4408000" />
-      <workItem from="1748486672856" duration="4000" />
-      <workItem from="1748587957465" duration="10122000" />
-      <workItem from="1748843125554" duration="438000" />
-      <workItem from="1748843586516" duration="22347000" />
-      <workItem from="1748910132432" duration="4473000" />
-      <workItem from="1748914883108" duration="12667000" />
-      <workItem from="1749021571477" duration="1061000" />
-      <workItem from="1749023558361" duration="3721000" />
-      <workItem from="1749031867759" duration="2063000" />
-      <workItem from="1749082731889" duration="8948000" />
-      <workItem from="1749124913024" duration="4794000" />
-      <workItem from="1749278643917" duration="1899000" />
-      <workItem from="1749295445875" duration="3341000" />
-      <workItem from="1749363134053" duration="1505000" />
-      <workItem from="1749603094057" duration="2068000" />
-      <workItem from="1749625328702" duration="1601000" />
+      <updated>1749866682527</updated>
+      <workItem from="1749866688615" duration="5202000" />
+      <workItem from="1750081606468" duration="114000" />
+      <workItem from="1750427502386" duration="43000" />
+      <workItem from="1751250922142" duration="1142000" />
+      <workItem from="1751262037372" duration="1353000" />
+      <workItem from="1751333253250" duration="9819000" />
+      <workItem from="1751507999889" duration="88000" />
+      <workItem from="1751513308042" duration="385000" />
+      <workItem from="1751516276012" duration="869000" />
+      <workItem from="1751589737682" duration="3598000" />
+      <workItem from="1751772985358" duration="58000" />
+      <workItem from="1751773102523" duration="78000" />
+      <workItem from="1752476081601" duration="2569000" />
     </task>
-    <task id="LOCAL-00001" summary="1">
+    <task id="LOCAL-00001" summary="初始化仓库介绍">
       <option name="closed" value="true" />
-      <created>1741788377944</created>
+      <created>1752478598359</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1741788377944</updated>
+      <updated>1752478598359</updated>
     </task>
-    <task id="LOCAL-00002" summary="更新接口规范，优化数据库字段">
-      <option name="closed" value="true" />
-      <created>1749626494961</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1749626494961</updated>
-    </task>
-    <task id="LOCAL-00003" summary="更新接口规范，优化数据库字段">
-      <option name="closed" value="true" />
-      <created>1749626744198</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1749626744198</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1" />
-    <MESSAGE value="更新接口规范，优化数据库字段" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新接口规范，优化数据库字段" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/LocalLife$LifeGatewayApplication.ic" NAME="LifeGatewayApplication 覆盖结果" MODIFIED="1742298905918" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.gateway.*</FILTER>
-    </SUITE>
+    <MESSAGE value="初始化仓库介绍" />
+    <option name="LAST_COMMIT_MESSAGE" value="初始化仓库介绍" />
   </component>
 </project>

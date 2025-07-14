@@ -20,6 +20,19 @@ spring:
       min-idle: 5
       max-active: 20
       max-wait: 60000
+
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
+#      username: admiin
+#      password: admin
+
+# rabbitmq配置
+rabbitmq:
+  host: localhost
+  port: 15672
+  username: guest
+  password: guest
 # 静态资源映射
   web:
     resources:

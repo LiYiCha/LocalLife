@@ -1,0 +1,128 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: payment-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: 9ae782ba-77b6-43cd-b1be-0dcf25721ff4
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    template:
+      retry:
+        enabled: true
+        initial-interval: 1000   # 等待xx再尝试（单位为毫秒）
+        max-attempts: 3          # 最大重试次数
+        multiplier: 2            # 次重试之间的等待时间的倍数增长
+
+# dubbo 配置--------------------------------------------------------------------------
+dubbo:
+  registry:
+    address: nacos://localhost:8848?username=nacos&password=nacos     # 注册中心地址，使用 Nacos 作为注册中心
+    parameters:
+      registry-type: nacos
+      namespace: 9ae782ba-77b6-43cd-b1be-0dcf25721ff4
+    use-as-config-center: false       #关闭在nacos中dubbo提供的一些默认的配置注册信息,如果不关闭,随着dubbo
+    use-as-metadata-center: false     #客户端运行nacos配置中心列表中会出现大量重复
+    #register-mode: instance           # 仅应用级注册，all的话是全局（接口级+应用级均注册）
+    register-mode: all           # 仅应用级注册，all的话是全局（接口级+应用级均注册）
+#  scan:
+#    mode: all # 只注册接口类，避免误注册普通类
+  protocol:
+    #name: tri   #triple 协议请求
+    name: dubbo
+    port: 50051  # Dubbo 协议端口号
+  consumer:
+    #关闭consumer的检查功能,如果不关闭,在consumer一旦发现服务注册中心
+    #没有调用的服务,就会报错
+    check: false
+    loadbalance: random  # 负载均衡策略，使用随机
+    retries: 3  # 重试次数
+    timeout: 5000  # 超时时间，单位为毫秒
+    filter: trace  # 过滤器，用于跟踪请求
+  application:
+    name: payment-dubbo  # 应用名称，用于注册到注册中心
+    logger: slf4j        # 日志框架，使用 SLF4J
+    serialize-check-status: DISABLE  #STRICT 严格检查，WARN 告警，DISABLE 禁用
+  provider:
+    loadbalance: roundrobin  # 负载均衡策略，使用轮询
+    retries: 3  # 重试次数
+    timeout: 5000  # 超时时间，单位为毫秒
+    filter: trace  # 过滤器，用于跟踪请求
+
+#-----------------------------------------------------------------------------------
+# 支付宝配置--------------------------------------------------------------------------
+alipay:
+  app-id:
+  alipay-public-key:
+  merchant-private-key:
+
+  #gateway-url: https://openapi.alipay.com/gateway.do
+  gateway-url: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+  return-url: https://localhost:8088/payment/return # 同步跳转地址
+  notify-url: https://服务器ip:9201/api/payment/alipay/notify # 异步通知地址
+  charset: UTF-8
+
+  cert-mode: false  # 启用证书模式
+  merchant-cert-path: classpath:certs/appCertPublicKey.crt
+  alipay-cert-path: classpath:certs/alipayCertPublicKey_RSA2.crt
+  alipay-root-cert-path: classpath:certs/alipayRootCert.crt
+
+  encrypt-key: your_encrypt_key
+  sign-type: RSA2
+
+  # 高性能配置
+  max-conn-total: 200
+  max-conn-per-route: 100
+  conn-timeout: 3000
+  read-timeout: 5000
+
+
+
+#------------------------------------------------------------------------------------
+# 微信支付配置--------------------------------------------------------------------------
+wechat:
+  enabled: false
+  app-id: your_app_id
+  mch-id: your_mch_id
+  api-v3-key: your_api_v3_key
+  private-key-path: /certs/apiclient_key.pem
+  cert-serial-no: your_cert_serial_no
+  notify-url: https://yourdomain.com/wechatpay/notify
+
+  service-provider-mode: false
+  # 多商户配置
+  merchants:
+    - merchant-id: merchant1
+      app-id: appid1
+      mch-id: mchid1
+      api-v3-key: apiv3key1
+      private-key-path: classpath:certs/merchant1_key.pem
+      cert-serial-no: serialno1
+    - merchant-id: merchant2
+      app-id: appid2
+      mch-id: mchid2
+      api-v3-key: apiv3key2
+      private-key-path: classpath:certs/merchant2_key.pem
+      cert-serial-no: serialno2
+  # 高性能配置
+  max-conn-total: 200
+  max-conn-per-route: 100
+
+#-----------------------------------------------------------------------------------
+# 线程池配置--------------------------------------------------------------------------
+async:
+  thread-pool:
+    core-size: 50
+    max-size: 200
+    queue-capacity: 1000
+    keep-alive: 60
+

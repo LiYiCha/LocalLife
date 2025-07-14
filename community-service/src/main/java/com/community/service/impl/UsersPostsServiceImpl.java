@@ -1,5 +1,11 @@
 package com.community.service.impl;
 
+import co.elastic.clients.elasticsearch.core.IndexRequest;
+import co.elastic.clients.elasticsearch.core.IndexResponse;
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.SearchResponse;
+import co.elastic.clients.elasticsearch.indices.CreateIndexRequest;
+import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.community.pojo.UsersPosts;
@@ -8,8 +14,12 @@ import com.community.service.UsersPostsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.core.utils.Result;
 import jakarta.annotation.Resource;
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.RequestOptions;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
 /**
  * <p>
@@ -25,7 +35,8 @@ public class UsersPostsServiceImpl extends ServiceImpl<UsersPostsMapper, UsersPo
 
     @Resource
     private UsersPostsMapper usersPostsMapper;
-
+    @Resource
+    private ElasticsearchOperations eso;
 
     /**
      * 根据标题搜索帖子（分页）
@@ -45,7 +56,9 @@ public class UsersPostsServiceImpl extends ServiceImpl<UsersPostsMapper, UsersPo
             log.error("搜索帖子失败", e);
             return Result.error("搜索帖子失败");
         }
+
     }
+
 
     /**
      * 点赞帖子

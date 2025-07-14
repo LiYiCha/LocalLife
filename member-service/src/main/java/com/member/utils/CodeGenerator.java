@@ -17,26 +17,26 @@ import java.util.Collections;
 public class CodeGenerator {
     public static void main(String[] args) {
         // 连接数据库
-        FastAutoGenerator.create("jdbc:mysql://localhost:3306/life_product?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC", "root", "114706")
+        FastAutoGenerator.create("jdbc:mysql://localhost:3306/life_admin?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC", "root", "114706")
                 .globalConfig(builder -> {
                     builder.author("一茶") // 设置作者
                             //.fileOverride() // 覆盖已生成文件
                             // 设置日期时间
                             .dateType(DateType.ONLY_DATE)
-                            .outputDir("D:\\exploitation\\work1\\LocalLife\\produc-service\\src\\main\\java"); // 指定输出目录
+                            .outputDir("D:\\exploitation\\work1\\LocalLife\\admin-service\\src\\main\\java"); // 指定输出目录
                 })
                 .packageConfig(builder -> {
-                    builder.parent("com.product") // 设置父包名
+                    builder.parent("com.admin") // 设置父包名
                             .entity("pojo") // 设置 Entity 包名
                             .service("service") // 设置 Service 包名
                             .serviceImpl("service.impl") // 设置 Service impl 包名
                             .mapper("mapper") // 设置 Mapper 包名
                             .xml("mapper") // 设置 Mapper XML 包名
                             .controller("controller") // 设置 Controller 包名
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, "D:\\exploitation\\work1\\LocalLife\\produc-service\\src\\main\\resources\\mapper")); // 设置mapperXml生成路径
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, "D:\\exploitation\\work1\\LocalLife\\admin-service\\src\\main\\resources\\mapper")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("products","product_skus","product_images","product_categories","product_reviews","shopping_cart") // 设置需要生成的表名
+                    builder.addInclude("admins") // 设置需要生成的表名
                             .addTablePrefix("t_"); // 设置过滤表前
                     // 新增数据，自动为创建时间赋值
                     IFill createFill = new Column("created_time", FieldFill.INSERT);

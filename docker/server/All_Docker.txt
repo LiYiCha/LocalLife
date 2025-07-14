@@ -1,0 +1,19 @@
+# 全Docker化部署(小集群 <10 节点 方案)
+# 在服务器操作步骤：
+1. 上传整个项目目录到服务器（包含docker目录）
+2. 安装基础环境：
+curl -fsSL https://get.docker.com | bash -s docker
+sudo systemctl enable --now docker
+docker compose version # 验证安装
+
+3. 调整配置（与本地不同之处）：
+# 修改docker/logstash.conf
+output {
+  elasticsearch {
+    hosts => ["http://服务器内网IP:9200"] # 改为服务器内网IP
+  }
+}
+
+4. 启动服务（带持久化存储）：
+docker compose -f docker/docker-compose-elk.yml up -d \
+  --volume elk_data:/usr/share/elasticsearch/data

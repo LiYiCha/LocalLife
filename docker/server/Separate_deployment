@@ -1,0 +1,36 @@
+# 分离部署（生产推荐，大型方案）
+# 架构说明：
+           [微服务集群]
+               ↓ 日志
+[Logstash集群] → [Elasticsearch集群] ← [Kibana服务器]
+
+# 操作步骤：
+1. 单独部署Elasticsearch集群（至少3节点）
+2. 部署Logstash到微服务所在服务器（边车模式）
+3. 单独部署Kibana服务
+
+# docker\docker-compose-elk.yml（片段修改）
+services:
+  elasticsearch:
+    environment:
+      - discovery.seed_hosts=es01,es02,es03 # 集群节点
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true # 内存锁定
+    volumes:
+      - /data/elasticsearch:/usr/share/elasticsearch/data
+    deploy:
+      resources:
+        limits:
+          memory: 4g
+
+# 为Elasticsearch添加认证：
+    xpack.security.enabled: true
+    xpack.security.transport.ssl.enabled: true
+
+
+# 在微服务配置中添加认证信息：logback-spring.xml
+<destination>logstash-server:5000</destination>
+<sslConfiguration>
+    <trustStore>/path/to/truststore.jks</trustStore>
+    <trustStorePassword>密码</trustStorePassword>
+</sslConfiguration>

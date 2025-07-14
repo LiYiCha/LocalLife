@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 修改为引用公共模块配置 -->
+    <include resource="META-INF/logback-common.xml"/>
+
+    <!-- 模块专属配置 -->
+<!--    <logger name="com.product" level="INFO"/>-->
+    <!-- 添加控制器包日志级别配置 -->
+    <logger name="com.product.controller" level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC_LOGSTASH"/>
+    </logger>
+    <!-- pattern配置需要放在appender内 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] [%X{traceId}] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- 添加控制器包日志级别控制 -->
+    <logger name="com.product.controller" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC_LOGSTASH"/>
+    </logger>
+
+    <appender name="ASYNC_LOGSTASH" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="LOGSTASH"/>
+        <queueSize>1024</queueSize>
+    </appender>
+<!--    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
+<!--        <destination>localhost:5000</destination> &lt;!&ndash; 使用Docker服务名 &ndash;&gt;-->
+<!--        <encoder class="net.logstash.logback.encoder.LogstashEncoder">-->
+<!--            <customFields>{"appname":"product-service"}</customFields>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <!-- 异步日志不影响控制台输出，但需要保持CONSOLE的独立引用 -->
+        <appender-ref ref="ASYNC_LOGSTASH"/>
+    </root>
+
+</configuration>

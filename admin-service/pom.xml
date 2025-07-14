@@ -1,0 +1,113 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.life</groupId>
+        <artifactId>local-life</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>admin-service</artifactId>
+    <packaging>jar</packaging>
+
+
+    <dependencies>
+        <!--数据模块-->
+        <dependency>
+            <groupId>com.life</groupId>
+            <artifactId>life-common-dataresource</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!--公共核心模块-->
+        <dependency>
+            <groupId>com.life</groupId>
+            <artifactId>life-common-core</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- Web 启动器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- 自动配置支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+<!--        &lt;!&ndash;nacos服务发现依赖&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash;nacos配置&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash;配置注解处理器&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-configuration-processor</artifactId>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <optional>true</optional>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 添加Spring Boot插件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.12.0</version>
+                <configuration>
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+            <!--api文档  begin-->
+            <plugin>
+                <groupId>com.github.shalousun</groupId>
+                <artifactId>smart-doc-maven-plugin</artifactId>
+                <version>2.3.5</version>
+                <configuration>
+                    <!--指定生成文档的使用的配置文件-->
+                    <configFile>${basedir}/src/main/resources/smart-doc-config.json</configFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!--如果不需要在执行编译时启动smart-doc，则将phase注释掉-->
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>html</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--api文档  end-->
+        </plugins>
+    </build>
+</project>

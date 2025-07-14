@@ -16,18 +16,21 @@
         <module name="file-service" />
         <module name="life-auth" />
         <module name="feign-api" />
-        <module name="payment-system" />
         <module name="community-service" />
         <module name="search-service" />
         <module name="member-service" />
         <module name="order-service" />
+        <module name="admin-service" />
+        <module name="dubbo-api" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="admin-service" options="-parameters" />
       <module name="community-service" options="-parameters" />
       <module name="coupon-service" options="-parameters" />
+      <module name="dubbo-api" options="-parameters" />
       <module name="feign-api" options="-parameters" />
       <module name="file-service" options="-parameters" />
       <module name="life-auth" options="-parameters" />
@@ -39,7 +42,6 @@
       <module name="local-life" options="-parameters" />
       <module name="member-service" options="-parameters" />
       <module name="order-service" options="-parameters" />
-      <module name="payment-system" options="-parameters" />
       <module name="product-service" options="-parameters" />
       <module name="search-service" options="-parameters" />
     </option>

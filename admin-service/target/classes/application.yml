@@ -1,0 +1,22 @@
+server:
+  port: 8089
+
+spring:
+  application:
+    name: admin-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: 9ae782ba-77b6-43cd-b1be-0dcf25721ff4
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/life_admins?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 114706
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000

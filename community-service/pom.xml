@@ -36,7 +36,47 @@
 			<artifactId>life-common-dataresource</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-
+		<!--ES依赖-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+		</dependency>
+		<!--ES客户端-->
+		<dependency>
+			<groupId>co.elastic.clients</groupId>
+			<artifactId>elasticsearch-java</artifactId>
+			<version>8.13.0</version>
+		</dependency>
+		<!-- RabbitMQ -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
 	</dependencies>
 
+	<build>
+		<plugins>
+			<!-- 添加Spring Boot插件 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.12.0</version>
+				<configuration>
+					<parameters>true</parameters>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

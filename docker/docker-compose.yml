@@ -1,0 +1,50 @@
+services:
+  elasticsearch:
+    image: elasticsearch:8.13.0
+    container_name: es01
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.type=single-node"
+      - "xpack.security.enabled=false"  # 禁用 x-pack 安全功能
+      - "xpack.security.http.ssl.enabled=false"
+    volumes:
+      - esdata01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - local-life-network
+
+  logstash:
+    image: logstash:8.13.0
+    container_name: logstash
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - "5000:5000"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    depends_on:
+      - elasticsearch
+    networks:
+      - local-life-network
+
+  kibana:
+    image: kibana:8.13.0
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      I18N_LOCALE: zh-CN
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - local-life-network
+
+volumes:
+  esdata01:
+    driver: local
+
+networks:
+  local-life-network:
+    driver: bridge

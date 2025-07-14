@@ -1,0 +1,3 @@
+com\auth\controller\CaptchaController.class
+com\auth\controller\UserController.class
+com\auth\LifeAuthApplication.class

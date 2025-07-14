@@ -1,0 +1,24 @@
+{
+  "serverUrl": "http://127.0.0.1:8089",
+  "outPath": "src/main/resources/static/doc/api",
+  "isStrict": false,
+  "allInOne": true,
+  "createDebugPage": true,
+  "packageFilters": "com.admin.controller",
+  "style": "xt256",
+  "projectName": "Admins管理员文档",
+  "showAuthor": false,
+  "allInOneDocFileName": "index.html",
+  "respBodyAdviceClasses": [
+    "com.core.utils.Result"
+  ],
+  "revisionLogs": [
+    {
+      "version": "1.0",
+      "revisionTime": "2025-07-01 10:30",
+      "status": "update",
+      "author": "yicha",
+      "remarks": "第一版"
+    }
+  ]
+}

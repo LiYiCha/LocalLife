@@ -1,0 +1,11 @@
+com\community\service\UsersPostsService.class
+com\community\CommunityServiceApplication.class
+com\community\controller\UsersPostsController.class
+com\community\pojo\UsersComments.class
+com\community\service\impl\UsersCommentsServiceImpl.class
+com\community\controller\UsersCommentsController.class
+com\community\service\impl\UsersPostsServiceImpl.class
+com\community\mapper\UsersCommentsMapper.class
+com\community\mapper\UsersPostsMapper.class
+com\community\service\UsersCommentsService.class
+com\community\pojo\UsersPosts.class

@@ -1,0 +1,7 @@
+com\feign\dto\ProductStockDTO.class
+com\feign\client\ProductClient.class
+com\feign\client\FeignUserClient.class
+com\feign\pojo\ShoppingCart.class
+com\feign\pojo\Users.class
+com\feign\pojo\Merchants.class
+com\feign\client\CouponClient.class

@@ -1,0 +1,8 @@
+com\core\utils\MD5Utils.class
+com\core\config\RedisConfig.class
+com\core\utils\TokenUtil.class
+com\core\utils\PageResult.class
+com\core\utils\Result.class
+com\core\exception\GlobalExceptionHandler.class
+com\core\utils\RedisUtil.class
+com\core\utils\ResultEnum.class

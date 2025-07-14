@@ -1,0 +1,13 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: file-service
+
+minio:
+  endpoint: http://localhost:9000 # MinIO 服务地址
+  accessKey:             # MinIO 用户名
+  secretKey:             # MinIO 密码
+  bucketName: lf_files                       # 默认存储桶名称
+

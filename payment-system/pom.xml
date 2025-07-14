@@ -2,11 +2,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.payment</groupId>
-  <artifactId>payment-system</artifactId>
-  <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
+    <parent>
+        <groupId>com.life</groupId>
+        <artifactId>local-life</artifactId>
+        <version>1.0.0</version>
+    </parent>
 
+  <artifactId>payment-system</artifactId>
+  <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -16,71 +19,21 @@
         <spring-cloud.version>2020.0.3</spring-cloud.version> <!-- 对应 Spring Boot 2.5.x -->
         <spring-cloud-alibaba.version>2.2.9.RELEASE</spring-cloud-alibaba.version> <!-- 对应 Spring Cloud 2020.x -->
     </properties>
-    <dependencyManagement>
-        <dependencies>
-            <!-- 引入 Spring Boot 依赖 -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
 
-            <!-- 引入 Spring Cloud 依赖 -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- 引入 Spring Cloud Alibaba 依赖 -->
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring-cloud-alibaba.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!--配置注解处理器-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-configuration-processor</artifactId>
-                <version>${spring-boot.version}</version>
-                <optional>true</optional>
-            </dependency>
-
-            <!--RabbitMQ-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-amqp</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.9</version>
-        <relativePath/>
-    </parent>
 
     <dependencies>
+        <!--api服务-->
+        <dependency>
+            <groupId>com.payment</groupId>
+            <artifactId>dubbo-api</artifactId>
+            <version>1.0-bate</version>
+        </dependency>
+
         <!-- Web 启动器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <!-- 自动配置支持 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -91,6 +44,11 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!--nacos配置-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
 
         <!-- 支付宝SDK -->
@@ -120,6 +78,16 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
+        <!--Dubbo Rpc框架-->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-nacos-spring-boot-starter</artifactId>
+        </dependency>
+
         <!-- Lombok -->
         <dependency>
           <groupId>org.projectlombok</groupId>
@@ -132,6 +100,19 @@
   <build>
     <finalName>payment-system</finalName>
       <plugins>
+          <!-- 添加Spring Boot插件 -->
+          <plugin>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-maven-plugin</artifactId>
+              <version>${spring-boot.version}</version>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>repackage</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
           <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-compiler-plugin</artifactId>
