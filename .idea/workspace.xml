@@ -4,62 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9a931c3-9d81-4bf8-b1ef-11f757835ccb" name="更改" comment="初始化仓库介绍">
-      <change afterPath="$PROJECT_DIR$/admin-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-service/src/main/java/com/admin/AdminsApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-service/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-service/src/main/resources/bootstrap.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin-service/src/main/resources/smart-doc-config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sql/life_admin_db.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CoolRequestCookiePersistent.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CoolRequestEnvironmentPersistentComponent.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CoolRequestHistoryPersistent.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/LocalLife.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/MarsCodeWorkspaceAppSettings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/community-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/com/community/service/impl/UsersPostsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/com/community/service/impl/UsersPostsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community-service/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community-service/target/classes/com/community/controller/UsersCommentsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/target/classes/com/community/controller/UsersCommentsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community-service/target/classes/com/community/controller/UsersPostsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/target/classes/com/community/controller/UsersPostsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community-service/target/classes/com/community/service/impl/UsersPostsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/target/classes/com/community/service/impl/UsersPostsServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coupon-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/coupon-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coupon-service/target/classes/com/coupon/controller/CouponController.class" beforeDir="false" afterPath="$PROJECT_DIR$/coupon-service/target/classes/com/coupon/controller/CouponController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coupon-service/target/classes/com/coupon/controller/CouponOrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/coupon-service/target/classes/com/coupon/controller/CouponOrderController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coupon-service/target/classes/com/coupon/service/impl/CouponServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/coupon-service/target/classes/com/coupon/service/impl/CouponServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/file-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/life-auth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/life-auth/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/src/main/java/com/core/utils/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/src/main/java/com/core/utils/Result.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/src/main/java/com/core/utils/ResultEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/src/main/java/com/core/utils/ResultEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/exception/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/exception/GlobalExceptionHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/utils/MD5Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/utils/MD5Utils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/utils/PageResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/utils/PageResult.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/utils/TokenUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/life-common-core/target/classes/com/core/utils/TokenUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/life-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/life-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/life-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/life-gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/life-gateway/target/classes/com/gateway/filter/GatewayFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/life-gateway/target/classes/com/gateway/filter/GatewayFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/member-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/member-service/src/main/java/com/member/utils/CodeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/java/com/member/utils/CodeGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/member-service/target/classes/com/member/service/impl/UserCheckinsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/target/classes/com/member/service/impl/UserCheckinsServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/member-service/target/classes/com/member/utils/CodeGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/target/classes/com/member/utils/CodeGenerator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/order/config/SendOrder.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/order/config/SendOrder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/target/classes/com/order/service/impl/OrdersServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/target/classes/com/order/service/impl/OrdersServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-system/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/payment-system/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-system/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-system/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/target/classes/com/product/service/impl/ProductSkusServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/target/classes/com/product/service/impl/ProductSkusServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/search-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/search-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/life_member_db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/life_member_db.sql" afterDir="false" />
-    </list>
+    <list default="true" id="d9a931c3-9d81-4bf8-b1ef-11f757835ccb" name="更改" comment="初始化仓库介绍" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -274,7 +219,7 @@
       <workItem from="1751589737682" duration="3598000" />
       <workItem from="1751772985358" duration="58000" />
       <workItem from="1751773102523" duration="78000" />
-      <workItem from="1752476081601" duration="2569000" />
+      <workItem from="1752476081601" duration="3001000" />
     </task>
     <task id="LOCAL-00001" summary="初始化仓库介绍">
       <option name="closed" value="true" />
@@ -284,7 +229,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752478598359</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="初始化仓库介绍">
+      <option name="closed" value="true" />
+      <created>1752478866982</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1752478866983</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
