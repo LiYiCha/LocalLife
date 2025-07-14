@@ -12,13 +12,13 @@ An O2O life service platform based on Spring Cloud Alibaba, integrating local me
 ![Architecture Diagram]
 
 **Technology Matrix**:
-| Domain           | Technology Selection                                                                  |
+| Domain           | Technology Selection                                                                   |
 |------------------|----------------------------------------------------------------------------------------|
-| Microservice Framework | Spring Cloud Alibaba 2023.0.1 + Spring Boot 3.3.5                         |
-| Service Governance       | Nacos 2.2.3 (Service Registry & Configuration Center)                    |
-| Traffic Control          | Sentinel 1.8.7 (Gateway QPS control + Hotspot parameter rate limiting) |
-| Distributed Transactions | Seata 1.8.1 (AT mode) + Redis 7.0 (Distributed lock implementation)    |
-| Search Service           | Elasticsearch 8.12 (Product/Community content search) + IK Analyzer     |
+| Microservice Framework | Spring Cloud Alibaba 2023.0.1 + Spring Boot 3.3.5                                |
+| Service Governance       | Nacos 2.2.3 (Service Registry & Configuration Center)                          |
+| Traffic Control          | Sentinel 1.8.7 (Gateway QPS control + Hotspot parameter rate limiting)         |
+| Distributed Transactions | Seata 1.8.1 (AT mode) + Redis 7.0 (Distributed lock implementation)             |
+| Search Service           | Elasticsearch 8.12 (Product/Community content search) + IK Analyzer              |
 | Data Storage             | MySQL 8.0 (Sharding) + Redis 7.0 (Cache & Distributed Locks) + MongoDB 6.0 (Logs) |
 | Service Communication    | OpenFeign 3.4.1 + LoadBalancer 4.0.3 + RabbitMQ 3.12 (Asynchronous communication) |
 
